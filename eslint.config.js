@@ -25,6 +25,7 @@ export default tseslint.config(
       ],
       "no-unused-vars": "warn",
       "react/prop-types": "off",
+      "@typescript-eslint/no-unused-vars": "warn",
     },
   }
 );
