@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import ActiveNavLink from "./Navlink";
 import SideNav from "./SideNav";
+import TopNav from "./TopNav";
 
 function AppLayout() {
   return (
@@ -20,15 +20,7 @@ function AppLayout() {
       </div> */}
       <SideNav />
 
-      {/* Top Navbar */}
-      <div className="bg-white border-b-2 text-teal-600 p-4 flex items-center justify-between">
-        <h1 className="text-lg font-semibold">Dashboard</h1>
-        <div>
-          <button className="bg-teal-600 px-4 py-2 rounded text-sm text-white">
-            Logout
-          </button>
-        </div>
-      </div>
+      <TopNav />
 
       {/* Main Content */}
       <div className="p-4">

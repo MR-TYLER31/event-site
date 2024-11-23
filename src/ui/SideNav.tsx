@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import ActiveNavLink from "./Navlink";
 
 function SideNav() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+  const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
     <nav className="row-span-4 border-r-2 bg-white text-teal-600 p-4">
