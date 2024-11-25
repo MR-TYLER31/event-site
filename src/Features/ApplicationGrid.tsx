@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import Button from "../ui/Button";
 
-const tabs = ["Suggested Jobs", "Applied Jobs", "Saved Jobs"];
+const tabs = [
+  "Suggested Jobs",
+  "Applied Jobs",
+  "Interviewing",
+  "Offered",
+  "Rejected",
+];
 
 const ApplicationGrid: React.FC = () => {
   const [activeTab, setActiveTab] = useState("Applied Jobs");
@@ -85,21 +91,23 @@ const ApplicationGrid: React.FC = () => {
   return (
     <div className="max-w-8xl mx-auto p-6">
       {/* Tab Navigation */}
-      <div className="flex border-b pb-2">
-        {tabs.map((tab) => (
-          <button
-            key={tab}
-            onClick={() => setActiveTab(tab)}
-            className={`text-lg font-medium ${
-              activeTab === tab
-                ? "text-teal-600 border-b-2 border-teal-600"
-                : "text-gray-600 hover:text-teal-600"
-            }`}
-          >
-            {tab}
-          </button>
-        ))}
-        <Button variant="primary" label="Add New" className="ml-auto" />
+      <div className="flex items-center justify-between border-b pb-2">
+        <div className="flex space-x-6">
+          {tabs.map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`text-lg font-medium ${
+                activeTab === tab
+                  ? "text-teal-600 border-b-2 border-teal-600"
+                  : "text-gray-600 hover:text-teal-600"
+              }`}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
+        <Button variant="primary" label="Add New" />
       </div>
 
       {/* Job Cards Grid */}
@@ -109,7 +117,7 @@ const ApplicationGrid: React.FC = () => {
             key={job.id}
             className="border rounded-lg p-4 shadow hover:shadow-lg transition min-h-96"
           >
-            <h3 className="text-lg font-semibold text-gray-800">{job.title}</h3>
+            <h3 className="text-xl font-semibold text-gray-800">{job.title}</h3>
             <p className="text-gray-600">{job.company}</p>
             <p className="text-gray-500 text-sm">{job.location}</p>
             <p className="mt-2 text-sm font-medium text-gray-700">

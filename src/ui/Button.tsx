@@ -1,14 +1,11 @@
-import React from "react";
-
 interface ButtonProps {
   label: string;
   //   onClick: () => void;
   variant?: "primary" | "secondary" | "danger";
   isDisabled?: boolean;
-  className?: string;
 }
 
-function Button({ variant = "primary", label, className }: ButtonProps) {
+function Button({ variant = "primary", label }: ButtonProps) {
   const baseClasses =
     "px-4 py-2 rounded-lg font-medium transition hover:opacity-80";
   const variants = {
@@ -18,9 +15,7 @@ function Button({ variant = "primary", label, className }: ButtonProps) {
     disabled: "bg-gray-300 text-gray-500 cursor-not-allowed",
   };
   return (
-    <button className={`${baseClasses} ${variants[variant]} ${className}`}>
-      {label}
-    </button>
+    <button className={`${baseClasses} ${variants[variant]}`}>{label}</button>
   );
 }
 
