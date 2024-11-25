@@ -28,9 +28,7 @@ function TopNav() {
   return (
     <div className="bg-white border-b-2 text-black py-6 flex items-center justify-between">
       <div>
-        <h1 className="text-lg ml-4 font-semibold">
-          <Outlet />
-        </h1>
+        <h1 className="text-lg ml-4 font-semibold"></h1>
       </div>
 
       <div className="flex items-center space-x-6">

@@ -42,7 +42,9 @@ function SideNav() {
       </div>
       <div className="space-y-4 mt-8">
         <ActiveNavLink to="/dashboard">Dashboard</ActiveNavLink>
-        <ActiveNavLink to="/analytics">Analytics</ActiveNavLink>
+        <ActiveNavLink to="/applicationmanager">
+          Application Management
+        </ActiveNavLink>
         <ActiveNavLink to="/settings">Settings</ActiveNavLink>
       </div>
     </nav>

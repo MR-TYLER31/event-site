@@ -25,7 +25,6 @@ function AppLayout() {
       {/* Main Content */}
       <div className="p-4">
         <Outlet />
-        <p>This is where your main content will go.</p>
       </div>
     </div>
   );
