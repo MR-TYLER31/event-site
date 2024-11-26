@@ -42,7 +42,7 @@ const ApplicationGrid: React.FC = () => {
       link: "#",
     },
     {
-      id: 3,
+      id: 4,
       title: "Lead React.js Developer (Remote, EST)",
       company: "Cloud7Works",
       location: "Remote, OR",
@@ -51,7 +51,7 @@ const ApplicationGrid: React.FC = () => {
       link: "#",
     },
     {
-      id: 1,
+      id: 5,
       title: "Lead Software Engineer (Front End)",
       company: "Capital One",
       location: "Norfolk, VA",
@@ -60,7 +60,7 @@ const ApplicationGrid: React.FC = () => {
       link: "#",
     },
     {
-      id: 2,
+      id: 6,
       title: "Senior Developer Point of Sale",
       company: "Cambridge Consulting Group LLC",
       location: "Austin, TX",
@@ -69,7 +69,7 @@ const ApplicationGrid: React.FC = () => {
       link: "#",
     },
     {
-      id: 3,
+      id: 7,
       title: "Lead React.js Developer (Remote, EST)",
       company: "Cloud7Works",
       location: "Remote, OR",
@@ -78,7 +78,7 @@ const ApplicationGrid: React.FC = () => {
       link: "#",
     },
     {
-      id: 3,
+      id: 8,
       title: "Lead React.js Developer (Remote, EST)",
       company: "Cloud7Works",
       location: "Remote, OR",
