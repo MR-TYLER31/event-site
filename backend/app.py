@@ -1,110 +1,35 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
-from flask_sqlalchemy import SQLAlchemy
+from database import db
+from models import Job
+from dotenv import load_dotenv
+import os
 
 # Initialize Flask app
 app = Flask(__name__)
 CORS(app)
 
-# Configure the database URI
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://username:password@localhost/database_name'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Optional: Disables unnecessary overhead
+# Configure the database URI (adjust this to your setup)
+app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+pymysql://{os.getenv('DB_USERNAME')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}/{os.getenv('DB_NAME')}"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Disable the overhead of tracking modifications
 
+# Initialize the app with the SQLAlchemy extension
+db.init_app(app)
 
-# Initialize SQLAlchemy
-db = SQLAlchemy(app)
+# Create tables on app startup (you could also manage migrations with Flask-Migrate)
+with app.app_context():
+    db.create_all()
 
-# Define a database model
-class Job(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100), nullable=False)
-    company = db.Column(db.String(100), nullable=False)
-    applied_date = db.Column(db.Date, nullable=False)
-
-# Example job data (replace with your actual data)
-jobs = [
-    {
-        "id": 1,
-        "title": "Lead Software Engineer (Front End)",
-        "company": "Capital One",
-        "location": "Norfolk, VA",
-        "salary": "$100K - $140K",
-        "type": "Full-Time",
-        "link": "#",
-    },
-    {
-        "id": 2,
-        "title": "Senior Developer Point of Sale",
-        "company": "Cambridge Consulting Group LLC",
-        "location": "Austin, TX",
-        "salary": "$80 - $140/hr",
-        "type": "Contractor",
-        "link": "#",
-    },
-    {
-        "id": 3,
-        "title": "Lead React.js Developer (Remote, EST)",
-        "company": "Cloud7Works",
-        "location": "Remote, OR",
-        "salary": "$100K - $180K",
-        "type": "Full-Time",
-        "link": "#",
-    },
-    {
-        "id": 4,
-        "title": "Lead React.js Developer (Remote, EST)",
-        "company": "Cloud7Works",
-        "location": "Remote, OR",
-        "salary": "$100K - $180K",
-        "type": "Full-Time",
-        "link": "#",
-    },
-    {
-        "id": 5,
-        "title": "Lead Software Engineer (Front End)",
-        "company": "Capital One",
-        "location": "Norfolk, VA",
-        "salary": "$100K - $140K",
-        "type": "Full-Time",
-        "link": "#",
-    },
-    {
-        "id": 6,
-        "title": "Senior Developer Point of Sale",
-        "company": "Cambridge Consulting Group LLC",
-        "location": "Austin, TX",
-        "salary": "$80 - $140/hr",
-        "type": "Contractor",
-        "link": "#",
-    },
-    {
-        "id": 7,
-        "title": "Lead React.js Developer (Remote, EST)",
-        "company": "Cloud7Works",
-        "location": "Remote, OR",
-        "salary": "$100K - $180K",
-        "type": "Full-Time",
-        "link": "#",
-    },
-    {
-        "id": 8,
-        "title": "Lead React.js Developer (Remote, EST)",
-        "company": "Cloud7Works",
-        "location": "Remote, OR",
-        "salary": "$100K - $180K",
-        "type": "Full-Time",
-        "link": "#",
-    },
-]
-
-# @app.route("/dashboard/", methods=["GET"])
-# def get_jobs():
-#     return jsonify(jobs)
-
-# Route to test database connection
+# Test route
 @app.route("/")
 def index():
-    return 'Flask-SQLAlchemy is set up'
+    return "Flask-SQLAlchemy is set up"
+
+# Example route to get all jobs
+@app.route("/jobs/", methods=["GET"])
+def get_jobs():
+    jobs = Job.query.all()  # Query all jobs
+    return jsonify([{"id": job.id, "title": job.title, "company": job.company, "applied_date": str(job.applied_date)} for job in jobs])
 
 if __name__ == "__main__":
     app.run(debug=True)

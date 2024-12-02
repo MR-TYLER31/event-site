@@ -12,7 +12,7 @@ function App() {
           <Route element={<AppLayout />}>
             <Route index element={<Navigate replace to="dashboard" />} />
             <Route path="dashboard" element={<Dashboard />} />
-            <Route path="applicationmanager" element={<ApplicationManager />} />
+            <Route path="manager" element={<ApplicationManager />} />
             <Route path="settings" element={<Settings />} />
           </Route>
         </Routes>
