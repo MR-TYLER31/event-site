@@ -5,9 +5,13 @@ from models import Job
 from dotenv import load_dotenv
 import os
 
+
+load_dotenv()
 # Initialize Flask app
 app = Flask(__name__)
+
 CORS(app)
+
 
 # Configure the database URI (adjust this to your setup)
 app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+pymysql://{os.getenv('DB_USERNAME')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}/{os.getenv('DB_NAME')}"
@@ -15,10 +19,13 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Disable the overhead of 
 
 # Initialize the app with the SQLAlchemy extension
 db.init_app(app)
+with app.app_context():
+     db.create_all()
+  
+
 
 # Create tables on app startup (you could also manage migrations with Flask-Migrate)
-with app.app_context():
-    db.create_all()
+
 
 # Test route
 @app.route("/")

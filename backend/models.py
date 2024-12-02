@@ -14,6 +14,7 @@ class Job(db.Model):
     salary: Mapped[str] = mapped_column(String(100), nullable=False)
     category: Mapped[str] = mapped_column(String(100), nullable=False)
     link: Mapped[str] = mapped_column(String(100), nullable=False)
+    status: Mapped[str] = mapped_column(String(100), nullable=False)
     applied_date: Mapped[str] = mapped_column(Date, nullable=False)
 
     def __repr__(self):
