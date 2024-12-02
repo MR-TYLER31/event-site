@@ -18,4 +18,4 @@ class Job(db.Model):
     applied_date: Mapped[str] = mapped_column(Date, nullable=False)
 
     def __repr__(self):
-        return f"<Job id={self.id} title={self.title} company={self.company}>"
+        return f"<Job id={self.id} title={self.title} company={self.company} location={self.location} salary={self.salary} category={self.category} link={self.link} status={self.status} applied_date={self.applied_date}>"

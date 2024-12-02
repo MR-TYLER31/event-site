@@ -36,7 +36,7 @@ def index():
 @app.route("/jobs/", methods=["GET"])
 def get_jobs():
     jobs = Job.query.all()  # Query all jobs
-    return jsonify([{"id": job.id, "title": job.title, "company": job.company, "applied_date": str(job.applied_date)} for job in jobs])
+    return jsonify([{"id": job.id, "title": job.title, "company": job.company, "location": job.location, "salary": job.salary, "category": job.category, "link": job.link, "status": job.status, "applied_date": str(job.applied_date)} for job in jobs])
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -1,6 +1,6 @@
 import ApplicationGrid from "../Features/ApplicationGrid";
 
-function ApplicationManager() {
+function Manager() {
   return (
     <div>
       <ApplicationGrid />
@@ -8,4 +8,4 @@ function ApplicationManager() {
   );
 }
 
-export default ApplicationManager;
+export default Manager;

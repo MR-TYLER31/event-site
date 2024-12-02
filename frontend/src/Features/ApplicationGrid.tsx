@@ -11,7 +11,7 @@ function ApplicationGrid() {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:5000/dashboard/");
+        const response = await axios.get("http://127.0.0.1:5000/jobs/");
         console.log(response.data); // Inspect the structure of the data
         setJobs(response.data); // Assuming response.data is the array of jobs
       } catch (error) {
@@ -56,7 +56,10 @@ function ApplicationGrid() {
             <p className="mt-2 text-sm font-medium text-gray-700">
               {job.salary}
             </p>
-            <p className="text-gray-500 text-sm">{job.type}</p>
+            <p className="mt-2 text-sm font-medium text-gray-700">
+              {job.status}
+            </p>
+            <p className="text-gray-500 text-sm">{job.category}</p>
             <div className="mt-4">
               <a
                 href={job.link}
