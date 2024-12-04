@@ -1,12 +1,27 @@
 import { useEffect, useState } from "react";
 import Button from "../ui/Button";
+import PaidIcon from "@mui/icons-material/Paid";
+import WorkIcon from "@mui/icons-material/Work";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import axios from "axios";
 
 const tabs = ["Applied Jobs", "Interviewing", "Offered", "Rejected"];
 
+interface Job {
+  id: number;
+  title: string;
+  company: string;
+  location: string;
+  salary: string; // or number
+  status: string;
+  category: string;
+  link: string;
+  applied_date: string; // or Date
+}
+
 function ApplicationGrid() {
   const [activeTab, setActiveTab] = useState("Applied Jobs");
-  const [jobs, setJobs] = useState([]);
+  const [jobs, setJobs] = useState<Job[]>([]);
 
   useEffect(() => {
     const fetchJobs = async () => {
@@ -44,31 +59,44 @@ function ApplicationGrid() {
       </div>
 
       {/* Job Cards Grid */}
-      <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {jobs.map((job) => (
           <div
             key={job.id}
-            className="border rounded-lg p-4 shadow hover:shadow-lg transition min-h-96"
+            className="border rounded-lg p-4 shadow hover:shadow-lg transition flex flex-col justify-between min-h-[24rem]"
           >
-            <h3 className="text-xl font-semibold text-gray-800">{job.title}</h3>
-            <p className="text-gray-600">{job.company}</p>
-            <p className="text-gray-500 text-sm">{job.location}</p>
-            <p className="mt-2 text-sm font-medium text-gray-700">
-              {job.salary}
-            </p>
-            <p className="mt-2 text-sm font-medium text-gray-700">
-              {job.status}
-            </p>
-            <p className="text-gray-500 text-sm">{job.category}</p>
-            <div className="mt-4">
-              <a
-                href={job.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-500 hover:underline text-sm font-medium"
-              >
-                View Job
-              </a>
+            <div className="p-4">
+              <h3 className="text-xl font-semibold text-gray-800">
+                {job.title}
+              </h3>
+              <span className="text-gray-600 italic">{job.company}</span>
+              <div className="mt-4 grid grid-cols-2 gap-4 text-sm text-gray-600">
+                <span className="font-medium text-gray-800">
+                  {job.location}
+                </span>
+
+                <span className="font-medium text-gray-800">
+                  <PaidIcon className="text-gray-600" />
+                  {job.salary}
+                </span>
+                <span className="font-medium text-gray-800">{job.status}</span>
+                <span className="font-medium text-gray-800">
+                  <WorkIcon className="text-gray-600" />
+                  {job.category}
+                </span>
+                <span className="font-medium text-gray-800">
+                  <AccessTimeIcon className="text-gray-600" />
+                  {job.applied_date}
+                </span>
+              </div>
+            </div>
+            <div className="mt-6 p-4 flex justify-start gap-6 items-center">
+              <button className="px-4 py-2 outline text-teal-600 rounded-lg">
+                Edit
+              </button>
+              <button className="px-4 py-2 outline text-red-500 rounded-lg">
+                Delete
+              </button>
             </div>
           </div>
         ))}
