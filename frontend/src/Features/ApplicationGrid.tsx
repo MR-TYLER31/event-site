@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Button from "../ui/Button";
+import Tabs from "../ui/Tabs";
 import PaidIcon from "@mui/icons-material/Paid";
 import WorkIcon from "@mui/icons-material/Work";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
@@ -38,23 +39,8 @@ function ApplicationGrid() {
 
   return (
     <div className="max-w-8xl mx-auto p-6">
-      {/* Tab Navigation */}
       <div className="flex items-center justify-between border-b pb-2">
-        <div className="flex space-x-6">
-          {tabs.map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`text-lg font-medium ${
-                activeTab === tab
-                  ? "text-teal-600 border-b-2 border-teal-600"
-                  : "text-gray-600 hover:text-teal-600"
-              }`}
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
+        <Tabs tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
         <Button variant="primary" label="Add New" />
       </div>
 
@@ -76,25 +62,25 @@ function ApplicationGrid() {
                 </span>
 
                 <span className="font-medium text-gray-800">
-                  <PaidIcon className="text-gray-600" />
+                  <PaidIcon className="text-gray-600 mr-1" />
                   {job.salary}
                 </span>
                 <span className="font-medium text-gray-800">{job.status}</span>
                 <span className="font-medium text-gray-800">
-                  <WorkIcon className="text-gray-600" />
+                  <WorkIcon className="text-gray-600 mr-1" />
                   {job.category}
                 </span>
                 <span className="font-medium text-gray-800">
-                  <AccessTimeIcon className="text-gray-600" />
-                  {job.applied_date}
+                  <AccessTimeIcon className="text-gray-600 mr-1" />
+                  {`Applied ${job.applied_date}`}
                 </span>
               </div>
             </div>
             <div className="mt-6 p-4 flex justify-start gap-6 items-center">
-              <button className="px-4 py-2 outline text-teal-600 rounded-lg">
+              <button className="px-4 py-2 border border-grey text-teal-600 rounded-lg">
                 Edit
               </button>
-              <button className="px-4 py-2 outline text-red-500 rounded-lg">
+              <button className="px-4 py-2 border border-grey text-red-500 rounded-lg">
                 Delete
               </button>
             </div>
