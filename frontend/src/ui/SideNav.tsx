@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ActiveNavLink from "./Navlink";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import FolderOutlinedIcon from "@mui/icons-material/FolderOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 
@@ -43,7 +44,10 @@ function SideNav() {
         </button>
       </div>
       <div className="space-y-4 mt-8">
-        <ActiveNavLink to="/dashboard">Dashboard</ActiveNavLink>
+        <ActiveNavLink to="/dashboard">
+          <HomeOutlinedIcon className="mr-2" />
+          Dashboard
+        </ActiveNavLink>
         <ActiveNavLink to="/manager">
           <FolderOutlinedIcon className="mr-2" />
           Manager
