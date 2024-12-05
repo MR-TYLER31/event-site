@@ -1,5 +1,7 @@
 import { useState } from "react";
 import ActiveNavLink from "./Navlink";
+import FolderOutlinedIcon from "@mui/icons-material/FolderOutlined";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 
 function SideNav() {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,8 +44,14 @@ function SideNav() {
       </div>
       <div className="space-y-4 mt-8">
         <ActiveNavLink to="/dashboard">Dashboard</ActiveNavLink>
-        <ActiveNavLink to="/manager">Manager</ActiveNavLink>
-        <ActiveNavLink to="/settings">Settings</ActiveNavLink>
+        <ActiveNavLink to="/manager">
+          <FolderOutlinedIcon className="mr-2" />
+          Manager
+        </ActiveNavLink>
+        <ActiveNavLink to="/settings">
+          <SettingsOutlinedIcon className="mr-2" />
+          Settings
+        </ActiveNavLink>
       </div>
     </nav>
   );

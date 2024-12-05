@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { Outlet } from "react-router-dom";
 
 function TopNav() {
   const [isOpen, setIsOpen] = useState(false);
