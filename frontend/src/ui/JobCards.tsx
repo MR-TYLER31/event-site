@@ -36,11 +36,11 @@ function JobCards({ activeTab }: JobCardsProps) {
     fetchJobs();
   }, []);
   return (
-    <>
+    <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {filteredJobs.map((job) => (
         <JobCard key={job.id} job={job} />
       ))}
-    </>
+    </div>
   );
 }
 
