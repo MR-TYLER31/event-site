@@ -1,8 +1,27 @@
 import { useState } from "react";
-import ActiveNavLink from "./Navlink";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import FolderOutlinedIcon from "@mui/icons-material/FolderOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import { Link, linkOptions } from "@tanstack/react-router";
+
+const options = [
+  linkOptions({
+    to: "/",
+    label: "Dashboard",
+    activeOptions: { exact: true },
+    icon: <HomeOutlinedIcon className="mr-2" />,
+  }),
+  linkOptions({
+    to: "/jobs",
+    label: "Jobs",
+    icon: <FolderOutlinedIcon className="mr-2" />,
+  }),
+  linkOptions({
+    to: "/settings",
+    label: "Settings",
+    icon: <SettingsOutlinedIcon className="mr-2" />,
+  }),
+];
 
 function SideNav() {
   const [isOpen, setIsOpen] = useState(false);
@@ -44,18 +63,44 @@ function SideNav() {
         </button>
       </div>
       <div className="space-y-4 mt-8">
-        <ActiveNavLink to="/dashboard">
+        {options.map((option) => {
+          return (
+            <Link
+              {...option}
+              key={option.to}
+              activeProps={{ className: `bg-teal-600 text-white` }}
+              className="transition ease-in-out p-2 block text-gray-300 hover:bg-teal-600 hover:text-white max-w-64 rounded-lg"
+            >
+              {option.icon}
+              {option.label}
+            </Link>
+          );
+        })}
+        {/* <Link
+          to="/"
+          className={`transition ease-in-out p-2 block text-gray-300 hover:bg-teal-600 hover:text-white max-w-64 rounded-lg ${useMatch({ from: "/" }) ? "bg-teal-600 text-white" : ""}`}
+        >
           <HomeOutlinedIcon className="mr-2" />
           Dashboard
-        </ActiveNavLink>
-        <ActiveNavLink to="/manager">
+        </Link>
+        <Link
+          to="/jobs"
+          className={
+            "transition ease-in-out p-2 block text-gray-300 hover:bg-teal-600 hover:text-white max-w-64 rounded-lg"
+          }
+        >
           <FolderOutlinedIcon className="mr-2" />
           Manager
-        </ActiveNavLink>
-        <ActiveNavLink to="/settings">
+        </Link>
+        <Link
+          to="/settings"
+          className={
+            "transition ease-in-out p-2 block text-gray-300 hover:bg-teal-600 hover:text-white max-w-64 rounded-lg"
+          }
+        >
           <SettingsOutlinedIcon className="mr-2" />
           Settings
-        </ActiveNavLink>
+        </Link> */}
       </div>
     </nav>
   );

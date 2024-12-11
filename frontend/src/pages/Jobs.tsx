@@ -1,6 +1,6 @@
 import ApplicationGrid from "../Features/ApplicationGrid";
 
-function Manager() {
+function Jobs() {
   return (
     <div>
       <ApplicationGrid />
@@ -8,4 +8,4 @@ function Manager() {
   );
 }
 
-export default Manager;
+export default Jobs;

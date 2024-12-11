@@ -17,13 +17,17 @@ function ApplicationGrid() {
     <div className="max-w-8xl mx-auto p-6">
       <div className="flex items-center justify-between border-b pb-2">
         <Tabs tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
-        <button onClick={() => setIsModalOpen(true)}>Add new</button>
+        <button
+          className="bg-teal-600 text-white px-4 py-2 rounded"
+          onClick={() => setIsModalOpen(true)}
+        >
+          Add new
+        </button>
       </div>
 
       {/* Job Cards Grid */}
       <JobCards activeTab={activeTab} />
 
-      <button onClick={openModal}>Add Job</button>
       {isModalOpen && (
         <Modal>
           <AddJobForm closeModal={closeModal} />

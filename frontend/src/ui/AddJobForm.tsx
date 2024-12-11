@@ -1,4 +1,4 @@
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 interface JobFormInputs {
   title: string;
@@ -11,7 +11,6 @@ interface JobFormInputs {
 }
 
 interface AddJobFormProps {
-  //   onSubmit: SubmitHandler<JobFormInputs>;
   closeModal: () => void;
 }
 
