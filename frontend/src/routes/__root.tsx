@@ -4,12 +4,14 @@ import { indexRoute } from "./indexRoute";
 import { dashboardRoute } from "./dashboardRoute";
 import { jobsRoute } from "./jobsRoute";
 import { settingsRoute } from "./settingsRoute";
+import { notFoundRoute } from "./notFoundRoute";
 
 const routeTree = rootRoute.addChildren([
   indexRoute,
   dashboardRoute,
   jobsRoute,
   settingsRoute,
+  notFoundRoute,
 ]);
 
 export const router = createRouter({ routeTree });

@@ -13,6 +13,7 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as SettingsRouteImport } from './routes/settingsRoute'
 import { Route as RootRouteImport } from './routes/rootRoute'
+import { Route as NotFoundRouteImport } from './routes/notFoundRoute'
 import { Route as JobsRouteImport } from './routes/jobsRoute'
 import { Route as IndexRouteImport } from './routes/indexRoute'
 import { Route as DashboardRouteImport } from './routes/dashboardRoute'
@@ -28,6 +29,12 @@ const SettingsRouteRoute = SettingsRouteImport.update({
 const RootRouteRoute = RootRouteImport.update({
   id: '/rootRoute',
   path: '/rootRoute',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const NotFoundRouteRoute = NotFoundRouteImport.update({
+  id: '/notFoundRoute',
+  path: '/notFoundRoute',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -74,6 +81,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof JobsRouteImport
       parentRoute: typeof rootRoute
     }
+    '/notFoundRoute': {
+      id: '/notFoundRoute'
+      path: '/notFoundRoute'
+      fullPath: '/notFoundRoute'
+      preLoaderRoute: typeof NotFoundRouteImport
+      parentRoute: typeof rootRoute
+    }
     '/rootRoute': {
       id: '/rootRoute'
       path: '/rootRoute'
@@ -97,6 +111,7 @@ export interface FileRoutesByFullPath {
   '/dashboardRoute': typeof DashboardRouteRoute
   '/indexRoute': typeof IndexRouteRoute
   '/jobsRoute': typeof JobsRouteRoute
+  '/notFoundRoute': typeof NotFoundRouteRoute
   '/rootRoute': typeof RootRouteRoute
   '/settingsRoute': typeof SettingsRouteRoute
 }
@@ -105,6 +120,7 @@ export interface FileRoutesByTo {
   '/dashboardRoute': typeof DashboardRouteRoute
   '/indexRoute': typeof IndexRouteRoute
   '/jobsRoute': typeof JobsRouteRoute
+  '/notFoundRoute': typeof NotFoundRouteRoute
   '/rootRoute': typeof RootRouteRoute
   '/settingsRoute': typeof SettingsRouteRoute
 }
@@ -114,6 +130,7 @@ export interface FileRoutesById {
   '/dashboardRoute': typeof DashboardRouteRoute
   '/indexRoute': typeof IndexRouteRoute
   '/jobsRoute': typeof JobsRouteRoute
+  '/notFoundRoute': typeof NotFoundRouteRoute
   '/rootRoute': typeof RootRouteRoute
   '/settingsRoute': typeof SettingsRouteRoute
 }
@@ -124,6 +141,7 @@ export interface FileRouteTypes {
     | '/dashboardRoute'
     | '/indexRoute'
     | '/jobsRoute'
+    | '/notFoundRoute'
     | '/rootRoute'
     | '/settingsRoute'
   fileRoutesByTo: FileRoutesByTo
@@ -131,6 +149,7 @@ export interface FileRouteTypes {
     | '/dashboardRoute'
     | '/indexRoute'
     | '/jobsRoute'
+    | '/notFoundRoute'
     | '/rootRoute'
     | '/settingsRoute'
   id:
@@ -138,6 +157,7 @@ export interface FileRouteTypes {
     | '/dashboardRoute'
     | '/indexRoute'
     | '/jobsRoute'
+    | '/notFoundRoute'
     | '/rootRoute'
     | '/settingsRoute'
   fileRoutesById: FileRoutesById
@@ -147,6 +167,7 @@ export interface RootRouteChildren {
   DashboardRouteRoute: typeof DashboardRouteRoute
   IndexRouteRoute: typeof IndexRouteRoute
   JobsRouteRoute: typeof JobsRouteRoute
+  NotFoundRouteRoute: typeof NotFoundRouteRoute
   RootRouteRoute: typeof RootRouteRoute
   SettingsRouteRoute: typeof SettingsRouteRoute
 }
@@ -155,6 +176,7 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRouteRoute: DashboardRouteRoute,
   IndexRouteRoute: IndexRouteRoute,
   JobsRouteRoute: JobsRouteRoute,
+  NotFoundRouteRoute: NotFoundRouteRoute,
   RootRouteRoute: RootRouteRoute,
   SettingsRouteRoute: SettingsRouteRoute,
 }
@@ -172,6 +194,7 @@ export const routeTree = rootRoute
         "/dashboardRoute",
         "/indexRoute",
         "/jobsRoute",
+        "/notFoundRoute",
         "/rootRoute",
         "/settingsRoute"
       ]
@@ -184,6 +207,9 @@ export const routeTree = rootRoute
     },
     "/jobsRoute": {
       "filePath": "jobsRoute.tsx"
+    },
+    "/notFoundRoute": {
+      "filePath": "notFoundRoute.tsx"
     },
     "/rootRoute": {
       "filePath": "rootRoute.tsx"
