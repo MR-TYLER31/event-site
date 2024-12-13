@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 from database import db
 from models import Job
@@ -9,7 +9,6 @@ import os
 load_dotenv()
 # Initialize Flask app
 app = Flask(__name__)
-
 CORS(app)
 
 
@@ -35,8 +34,29 @@ def index():
 # Example route to get all jobs
 @app.route("/jobs/", methods=["GET"])
 def get_jobs():
-    jobs = Job.query.all()  # Query all jobs
-    return jsonify([{"id": job.id, "title": job.title, "company": job.company, "location": job.location, "salary": job.salary, "category": job.category, "link": job.link, "status": job.status, "applied_date": str(job.applied_date)} for job in jobs])
+    try:
+        jobs = Job.query.all()  # Query all jobs
+        # print("jobs fetched:", jobs)
+        jobs_list = [{"id": job.id, "title": job.title, "company": job.company, "location": job.location, "salary": job.salary, "category": job.category, "link": job.link, "status": job.status, "applied_date": str(job.applied_date)} for job in jobs]
+        return jsonify(jobs_list), 200
+    except Exception as e:
+        print("Error:", str(e))
+        return jsonify({"error": str(e)}), 500
+    
+    
+@app.route("/add-job/", methods=["POST"])
+
+def add_job():
+    try:
+        job_data = request.json
+        print("Received job data:", job_data)
+        new_job = Job(**job_data)
+        db.session.add(new_job)
+        db.session.commit()
+        return jsonify({"message": "Job added successfully!"}), 202
+    except Exception as e:
+        db.session.rollback() # Rollback in case of error
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
     app.run(debug=True)

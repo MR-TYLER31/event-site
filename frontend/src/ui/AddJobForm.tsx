@@ -1,3 +1,5 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
 import { useForm } from "react-hook-form";
 
 interface JobFormInputs {
@@ -7,6 +9,7 @@ interface JobFormInputs {
   salary: string;
   status: string;
   category: string;
+  link: string;
   applied_date: string;
 }
 
@@ -16,9 +19,30 @@ interface AddJobFormProps {
 
 function AddJobForm({ closeModal }: AddJobFormProps) {
   const { register, handleSubmit, reset } = useForm<JobFormInputs>();
+  const queryClient = useQueryClient();
 
-  const handleFormSubmit = (data: JobFormInputs) => {
-    console.log(data);
+  // Define the mutation for adding a job
+  const mutation = useMutation({
+    mutationFn: async (newJob: JobFormInputs) => {
+      const response = await axios.post(
+        "http://127.0.0.1:5000/add-job/",
+        newJob
+      );
+      return response.data;
+    },
+    onSuccess: () => {
+      // Invalidate the "jobs" query to refetch the job list
+      queryClient.invalidateQueries({ queryKey: ["jobs"] });
+      closeModal();
+    },
+    onError: (error) => {
+      console.error("Failed to add job:", error);
+    },
+  });
+
+  const handleFormSubmit = async (data: JobFormInputs) => {
+    // console.log(data);
+    mutation.mutate(data);
     reset();
   };
 
@@ -87,6 +111,12 @@ function AddJobForm({ closeModal }: AddJobFormProps) {
           className="w-full border rounded p-2"
           placeholder="Category"
         />
+        <label className="block text-sm font-medium text-gray-700">Link</label>
+        <input
+          {...register("link")}
+          className="w-full border rounded p-2"
+          placeholder="Link"
+        />
       </div>
 
       <div>
@@ -111,8 +141,9 @@ function AddJobForm({ closeModal }: AddJobFormProps) {
         <button
           type="submit"
           className="bg-blue-500 text-white px-4 py-2 rounded"
+          disabled={mutation.isPending}
         >
-          Submit
+          {mutation.isPending ? "Submitting..." : "Submit"}
         </button>
       </div>
     </form>
