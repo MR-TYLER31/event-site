@@ -45,7 +45,6 @@ def get_jobs():
     
     
 @app.route("/add-job/", methods=["POST"])
-
 def add_job():
     try:
         job_data = request.json
@@ -57,6 +56,28 @@ def add_job():
     except Exception as e:
         db.session.rollback() # Rollback in case of error
         return jsonify({"error": str(e)}), 500
+    
+    
+@app.route("/delete-job/<id>/", methods=["DELETE"])
+def delete_job(id):
+    try:
+        print(f"Attempting to delete job with ID: {id}")
+        job = Job.query.get(int(id))
+        if not job:
+            print("Job not found.")
+            return jsonify({"error": "Job not found"}), 404
+
+        print(f"Job found: {job}")
+        db.session.delete(job)
+        db.session.commit()
+        print("Job deleted successfully.")
+        return jsonify({"message": "Job deleted successfully"}), 200
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return jsonify({"error": f"Unexpected error: {str(e)}"}), 500
+
+        
 
 if __name__ == "__main__":
     app.run(debug=True)

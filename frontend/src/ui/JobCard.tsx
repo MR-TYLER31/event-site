@@ -1,6 +1,8 @@
 import PaidIcon from "@mui/icons-material/Paid";
 import WorkIcon from "@mui/icons-material/Work";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
 
 interface Job {
   id: number;
@@ -19,6 +21,29 @@ interface JobProps {
 }
 
 function JobCard({ job }: JobProps) {
+  const queryClient = useQueryClient();
+
+  // Define the delete mutation
+  const deleteMutation = useMutation({
+    mutationFn: async (jobId: number) => {
+      console.log(`Deleting job with ID: ${jobId}`);
+      await axios.delete(`http://127.0.0.1:5000/delete-job/${jobId}/`);
+    },
+    onSuccess: () => {
+      // Invalidate the jobs query to refresh the list
+      queryClient.invalidateQueries({ queryKey: ["jobs"] });
+    },
+    onError: (error) => {
+      console.log("Failed to delete the job:", error);
+    },
+  });
+
+  const handleDelete = () => {
+    if (window.confirm(`Are you sure you want to delete ${job.title}?`)) {
+      deleteMutation.mutate(job.id);
+    }
+  };
+
   return (
     <div
       key={job.id}
@@ -50,8 +75,12 @@ function JobCard({ job }: JobProps) {
         <button className="px-4 py-2 border border-grey text-teal-600 rounded-lg">
           Edit
         </button>
-        <button className="px-4 py-2 border border-grey text-red-500 rounded-lg">
-          Delete
+        <button
+          className="px-4 py-2 border border-grey text-red-500 rounded-lg"
+          onClick={handleDelete}
+          disabled={deleteMutation.isPending}
+        >
+          {deleteMutation.isPending ? "Deleting..." : "Delete"}
         </button>
       </div>
     </div>
