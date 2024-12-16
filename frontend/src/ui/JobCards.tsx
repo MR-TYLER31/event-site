@@ -1,6 +1,7 @@
 import axios from "axios";
 import JobCard from "./JobCard";
 import { useQuery } from "@tanstack/react-query";
+import Spinner from "./Spinner";
 
 interface Job {
   id: number;
@@ -38,10 +39,16 @@ function JobCards({
   const filteredJobs =
     activeTab === "All" ? jobs : jobs.filter((job) => job.status === activeTab);
 
-  if (isPending) return <div>Loading jobs...</div>;
+  if (isPending)
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <Spinner size="w-20 h-20" color="border-teal-500" />
+      </div>
+    );
+
   if (isError)
     return (
-      <div>
+      <div className="flex justify-center items-center min-h-screen">
         Error loading jobs: {(error as Error).message || "Something went wrong"}
       </div>
     );

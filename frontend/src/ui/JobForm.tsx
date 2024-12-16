@@ -3,6 +3,7 @@ import axios from "axios";
 
 import { useForm } from "react-hook-form";
 import { Job } from "./JobCard";
+import Spinner from "./Spinner";
 
 interface JobFormInputs {
   title: string;
@@ -36,6 +37,9 @@ function JobForm({ closeModal, modalType, job }: JobFormProps) {
   });
   const queryClient = useQueryClient();
 
+  const delay = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
+
   // Define the mutation for adding a job
   const mutation = useMutation({
     mutationFn: async (jobData: JobFormInputs) => {
@@ -47,8 +51,10 @@ function JobForm({ closeModal, modalType, job }: JobFormProps) {
           jobData
         );
       }
+      await delay(500);
     },
-    onSuccess: () => {
+    onSuccess: async () => {
+      await delay(2000);
       // Invalidate the "jobs" query to refetch the job list
       queryClient.invalidateQueries({ queryKey: ["jobs"] });
       closeModal();
@@ -165,10 +171,23 @@ function JobForm({ closeModal, modalType, job }: JobFormProps) {
         </button>
         <button
           type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded"
+          className="bg-blue-500 text-white px-4 py-2 rounded flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
           disabled={mutation.isPending}
         >
-          {modalType === "add" ? "Add Job" : "Save"}
+          {mutation.isPending && (
+            <Spinner size="w-4 h-4" color="border-white" margin="mr-2" />
+            // <div
+            //   className="w-4 h-4 border-2 border-t-transparent border-white rounded-full animate-spin mr-2"
+            //   aria-label="Loading spinner"
+            // ></div>
+          )}
+          {mutation.isPending
+            ? modalType === "add"
+              ? "Adding Job"
+              : "Saving"
+            : modalType === "add"
+              ? "Add Job"
+              : "Save"}
         </button>
       </div>
     </form>
