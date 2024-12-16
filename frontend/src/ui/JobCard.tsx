@@ -3,8 +3,9 @@ import WorkIcon from "@mui/icons-material/Work";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+import { useState } from "react";
 
-interface Job {
+export interface Job {
   id: number;
   title: string;
   company: string;
@@ -18,9 +19,11 @@ interface Job {
 
 interface JobProps {
   job: Job;
+  onEdit: (job: Job) => void;
 }
 
-function JobCard({ job }: JobProps) {
+function JobCard({ job, onEdit }: JobProps) {
+  const [isOpenModal, setIsOpenModal] = useState(false);
   const queryClient = useQueryClient();
 
   // Define the delete mutation
@@ -39,9 +42,7 @@ function JobCard({ job }: JobProps) {
   });
 
   const handleDelete = () => {
-    if (window.confirm(`Are you sure you want to delete ${job.title}?`)) {
-      deleteMutation.mutate(job.id);
-    }
+    deleteMutation.mutate(job.id);
   };
 
   return (
@@ -72,16 +73,44 @@ function JobCard({ job }: JobProps) {
         </div>
       </div>
       <div className="mt-6 p-4 flex justify-start gap-6 items-center">
-        <button className="px-4 py-2 border border-grey text-teal-600 rounded-lg">
+        <button
+          className="px-4 py-2 border border-grey text-teal-600 rounded-lg"
+          onClick={() => onEdit(job)}
+        >
           Edit
         </button>
         <button
           className="px-4 py-2 border border-grey text-red-500 rounded-lg"
-          onClick={handleDelete}
-          disabled={deleteMutation.isPending}
+          onClick={() => setIsOpenModal((show) => !show)}
         >
-          {deleteMutation.isPending ? "Deleting..." : "Delete"}
+          Delete
         </button>
+
+        {/* Confirmation Modal */}
+        {isOpenModal && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="bg-white p-6 rounded shadow-lg">
+              <h4 className="text-lg font-bold mb-4">
+                Are you sure you want to delete "{job.title}"?
+              </h4>
+              <div className="flex justify-end gap-2">
+                <button
+                  className="px-4 py-2 border rounded hover:bg-gray-100"
+                  onClick={() => setIsOpenModal((show) => !show)}
+                >
+                  Cancel
+                </button>
+                <button
+                  className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                  onClick={handleDelete}
+                  disabled={deleteMutation.isPending}
+                >
+                  {deleteMutation.isPending ? "Deleting..." : "Delete"}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

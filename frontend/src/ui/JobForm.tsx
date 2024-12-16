@@ -1,6 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+
 import { useForm } from "react-hook-form";
+import { Job } from "./JobCard";
 
 interface JobFormInputs {
   title: string;
@@ -13,22 +15,38 @@ interface JobFormInputs {
   applied_date: string;
 }
 
-interface AddJobFormProps {
+interface JobFormProps {
   closeModal: () => void;
+  modalType: "add" | "edit";
+  job: Job | null;
 }
 
-function AddJobForm({ closeModal }: AddJobFormProps) {
-  const { register, handleSubmit, reset } = useForm<JobFormInputs>();
+function JobForm({ closeModal, modalType, job }: JobFormProps) {
+  const { register, handleSubmit, reset } = useForm<JobFormInputs>({
+    defaultValues: job || {
+      title: "",
+      company: "",
+      location: "",
+      salary: "",
+      status: "Applied",
+      category: "",
+      link: "",
+      applied_date: "",
+    },
+  });
   const queryClient = useQueryClient();
 
   // Define the mutation for adding a job
   const mutation = useMutation({
-    mutationFn: async (newJob: JobFormInputs) => {
-      const response = await axios.post(
-        "http://127.0.0.1:5000/add-job/",
-        newJob
-      );
-      return response.data;
+    mutationFn: async (jobData: JobFormInputs) => {
+      if (modalType === "add") {
+        await axios.post("http://127.0.0.1:5000/add-job/", jobData);
+      } else {
+        await axios.put(
+          `http://127.0.0.1:5000/update-job/${job?.id}/`,
+          jobData
+        );
+      }
     },
     onSuccess: () => {
       // Invalidate the "jobs" query to refetch the job list
@@ -47,7 +65,11 @@ function AddJobForm({ closeModal }: AddJobFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4">
+    <form
+      key={job?.id || "add-job"}
+      onSubmit={handleSubmit(handleFormSubmit)}
+      className="space-y-4"
+    >
       <div>
         <label className="block text-sm font-medium text-gray-700">Title</label>
         <input
@@ -73,7 +95,7 @@ function AddJobForm({ closeModal }: AddJobFormProps) {
           Location
         </label>
         <input
-          {...register("location")}
+          {...register("location", { required: true })}
           className="w-full border rounded p-2"
           placeholder="Location"
         />
@@ -84,7 +106,7 @@ function AddJobForm({ closeModal }: AddJobFormProps) {
           Salary
         </label>
         <input
-          {...register("salary")}
+          {...register("salary", { required: true })}
           className="w-full border rounded p-2"
           placeholder="Salary"
         />
@@ -94,7 +116,10 @@ function AddJobForm({ closeModal }: AddJobFormProps) {
         <label className="block text-sm font-medium text-gray-700">
           Status
         </label>
-        <select {...register("status")} className="w-full border rounded p-2">
+        <select
+          {...register("status", { required: true })}
+          className="w-full border rounded p-2"
+        >
           <option value="Applied">Applied</option>
           <option value="Interviewing">Interviewing</option>
           <option value="Offered">Offered</option>
@@ -124,7 +149,7 @@ function AddJobForm({ closeModal }: AddJobFormProps) {
           Applied Date
         </label>
         <input
-          {...register("applied_date")}
+          {...register("applied_date", { required: true })}
           type="date"
           className="w-full border rounded p-2"
         />
@@ -143,11 +168,11 @@ function AddJobForm({ closeModal }: AddJobFormProps) {
           className="bg-blue-500 text-white px-4 py-2 rounded"
           disabled={mutation.isPending}
         >
-          {mutation.isPending ? "Submitting..." : "Submit"}
+          {modalType === "add" ? "Add Job" : "Save"}
         </button>
       </div>
     </form>
   );
 }
 
-export default AddJobForm;
+export default JobForm;

@@ -18,7 +18,10 @@ interface JobCardsProps {
   activeTab: string;
 }
 
-function JobCards({ activeTab }: JobCardsProps) {
+function JobCards({
+  activeTab,
+  onEdit,
+}: JobCardsProps & { onEdit: (job: Job) => void }) {
   const {
     data: jobs = [],
     isPending,
@@ -46,7 +49,7 @@ function JobCards({ activeTab }: JobCardsProps) {
   return (
     <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {filteredJobs.map((job) => (
-        <JobCard key={job.id} job={job} />
+        <JobCard key={job.id} job={job} onEdit={onEdit} />
       ))}
     </div>
   );
