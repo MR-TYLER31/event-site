@@ -76,91 +76,96 @@ function JobForm({ closeModal, modalType, job }: JobFormProps) {
       onSubmit={handleSubmit(handleFormSubmit)}
       className="space-y-4"
     >
-      <div>
-        <label className="block text-sm font-medium text-gray-700">Title</label>
-        <input
-          {...register("title", { required: true })}
-          className="w-full border rounded p-2"
-          placeholder="Job Title"
-        />
-      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            Title
+          </label>
+          <input
+            {...register("title", { required: true })}
+            className="w-full border rounded p-2"
+            placeholder="Job Title"
+          />
+        </div>
 
-      <div>
-        <label className="block text-sm font-medium text-gray-700">
-          Company
-        </label>
-        <input
-          {...register("company", { required: true })}
-          className="w-full border rounded p-2"
-          placeholder="Company Name"
-        />
-      </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            Company
+          </label>
+          <input
+            {...register("company", { required: true })}
+            className="w-full border rounded p-2"
+            placeholder="Company Name"
+          />
+        </div>
 
-      <div>
-        <label className="block text-sm font-medium text-gray-700">
-          Location
-        </label>
-        <input
-          {...register("location", { required: true })}
-          className="w-full border rounded p-2"
-          placeholder="Location"
-        />
-      </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            Location
+          </label>
+          <input
+            {...register("location", { required: true })}
+            className="w-full border rounded p-2"
+            placeholder="Location"
+          />
+        </div>
 
-      <div>
-        <label className="block text-sm font-medium text-gray-700">
-          Salary
-        </label>
-        <input
-          {...register("salary", { required: true })}
-          className="w-full border rounded p-2"
-          placeholder="Salary"
-        />
-      </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            Salary
+          </label>
+          <input
+            {...register("salary", { required: true })}
+            className="w-full border rounded p-2"
+            placeholder="Salary"
+          />
+        </div>
 
-      <div>
-        <label className="block text-sm font-medium text-gray-700">
-          Status
-        </label>
-        <select
-          {...register("status", { required: true })}
-          className="w-full border rounded p-2"
-        >
-          <option value="Applied">Applied</option>
-          <option value="Interviewing">Interviewing</option>
-          <option value="Offered">Offered</option>
-          <option value="Rejected">Rejected</option>
-        </select>
-      </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            Status
+          </label>
+          <select
+            {...register("status", { required: true })}
+            className="w-full border rounded p-2"
+          >
+            <option value="Applied">Applied</option>
+            <option value="Interviewing">Interviewing</option>
+            <option value="Offered">Offered</option>
+            <option value="Rejected">Rejected</option>
+          </select>
+        </div>
 
-      <div>
-        <label className="block text-sm font-medium text-gray-700">
-          Category
-        </label>
-        <input
-          {...register("category")}
-          className="w-full border rounded p-2"
-          placeholder="Category"
-        />
-        <label className="block text-sm font-medium text-gray-700">Link</label>
-        <input
-          {...register("link")}
-          className="w-full border rounded p-2"
-          placeholder="Link"
-        />
-      </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            Category
+          </label>
+          <input
+            {...register("category")}
+            className="w-full border rounded p-2"
+            placeholder="Category"
+          />
+          <label className="block text-sm font-medium text-gray-700">
+            Link
+          </label>
+          <input
+            {...register("link")}
+            className="w-full border rounded p-2"
+            placeholder="Link"
+          />
+        </div>
 
-      <div>
-        <label className="block text-sm font-medium text-gray-700">
-          Applied Date
-        </label>
-        <input
-          {...register("applied_date", { required: true })}
-          type="date"
-          className="w-full border rounded p-2"
-        />
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            Applied Date
+          </label>
+          <input
+            {...register("applied_date", { required: true })}
+            type="date"
+            className="w-full border rounded p-2"
+          />
+        </div>
       </div>
-
       <div className="flex justify-end space-x-2">
         <button
           type="button"
@@ -171,15 +176,11 @@ function JobForm({ closeModal, modalType, job }: JobFormProps) {
         </button>
         <button
           type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+          className="bg-black text-white px-4 py-2 rounded flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
           disabled={mutation.isPending}
         >
           {mutation.isPending && (
             <Spinner size="w-4 h-4" color="border-white" margin="mr-2" />
-            // <div
-            //   className="w-4 h-4 border-2 border-t-transparent border-white rounded-full animate-spin mr-2"
-            //   aria-label="Loading spinner"
-            // ></div>
           )}
           {mutation.isPending
             ? modalType === "add"

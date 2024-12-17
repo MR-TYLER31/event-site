@@ -3,7 +3,7 @@ import React from "react";
 const Spinner: React.FC<{ size?: string; color?: string; margin?: string }> = ({
   size = "w-16 h-16",
   color = "border-blue-500",
-  margin = "0",
+  margin,
 }) => {
   return (
     <div

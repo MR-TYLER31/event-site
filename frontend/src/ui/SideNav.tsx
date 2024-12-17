@@ -9,7 +9,7 @@ const options = [
     to: "/",
     label: "Dashboard",
     activeOptions: { exact: true },
-    icon: <HomeOutlinedIcon className="mr-2" />,
+    icon: <HomeOutlinedIcon className="mr-2 text-lg" />,
   }),
   linkOptions({
     to: "/jobs",
@@ -69,7 +69,7 @@ function SideNav() {
               {...option}
               key={option.to}
               activeProps={{ className: `bg-teal-600 text-white` }}
-              className="transition ease-in-out p-2 block text-gray-300 hover:bg-teal-600 hover:text-white max-w-64 rounded-lg"
+              className="transition ease-in-out p-2 block text-gray-400 hover:bg-teal-600 hover:text-white max-w-64 rounded-lg"
             >
               {option.icon}
               {option.label}
