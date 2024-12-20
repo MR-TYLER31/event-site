@@ -1,7 +1,9 @@
+import { useQuery } from "@tanstack/react-query";
+import { ErrorBoundary } from "react-error-boundary";
 import axios from "axios";
 import JobCard from "./JobCard";
-import { useQuery } from "@tanstack/react-query";
 import Spinner from "./Spinner";
+import ErrorLoading from "./ErrorLoading";
 
 interface Job {
   id: number;
@@ -27,13 +29,13 @@ function JobCards({
     data: jobs = [],
     isPending,
     isError,
-    error,
   } = useQuery<Job[]>({
     queryKey: ["jobs"],
     queryFn: async () => {
       const response = await axios.get("http://127.0.0.1:5000/jobs/");
       return response.data; // Assuming this is the array of jobs
     },
+    retry: false,
   });
 
   const filteredJobs =
@@ -46,12 +48,21 @@ function JobCards({
       </div>
     );
 
-  if (isError)
+  const ErrorFallback = ({ error }: { error: Error }) => (
+    <ErrorLoading message={error.message || "Something went wrong"} />
+  );
+
+  if (isError) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        Error loading jobs: {(error as Error).message || "Something went wrong"}
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <div>
+            <ErrorLoading />
+          </div>
+        </ErrorBoundary>
       </div>
     );
+  }
 
   return (
     <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

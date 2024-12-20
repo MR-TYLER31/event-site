@@ -6,9 +6,9 @@ import { Link, linkOptions } from "@tanstack/react-router";
 
 const options = [
   linkOptions({
-    to: "/",
+    to: "/dashboard",
     label: "Dashboard",
-    activeOptions: { exact: true },
+    activeOptions: { exact: false },
     icon: <HomeOutlinedIcon className="mr-2 text-lg" />,
   }),
   linkOptions({
@@ -76,31 +76,6 @@ function SideNav() {
             </Link>
           );
         })}
-        {/* <Link
-          to="/"
-          className={`transition ease-in-out p-2 block text-gray-300 hover:bg-teal-600 hover:text-white max-w-64 rounded-lg ${useMatch({ from: "/" }) ? "bg-teal-600 text-white" : ""}`}
-        >
-          <HomeOutlinedIcon className="mr-2" />
-          Dashboard
-        </Link>
-        <Link
-          to="/jobs"
-          className={
-            "transition ease-in-out p-2 block text-gray-300 hover:bg-teal-600 hover:text-white max-w-64 rounded-lg"
-          }
-        >
-          <FolderOutlinedIcon className="mr-2" />
-          Manager
-        </Link>
-        <Link
-          to="/settings"
-          className={
-            "transition ease-in-out p-2 block text-gray-300 hover:bg-teal-600 hover:text-white max-w-64 rounded-lg"
-          }
-        >
-          <SettingsOutlinedIcon className="mr-2" />
-          Settings
-        </Link> */}
       </div>
     </nav>
   );

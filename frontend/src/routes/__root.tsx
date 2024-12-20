@@ -1,10 +1,10 @@
 import { createRouter } from "@tanstack/react-router";
 import { rootRoute } from "./rootRoute";
 import { indexRoute } from "./indexRoute";
-import { dashboardRoute } from "./dashboardRoute";
 import { jobsRoute } from "./jobsRoute";
 import { settingsRoute } from "./settingsRoute";
 import { notFoundRoute } from "./notFoundRoute";
+import { dashboardRoute } from "./dashboardRoute";
 
 const routeTree = rootRoute.addChildren([
   indexRoute,
