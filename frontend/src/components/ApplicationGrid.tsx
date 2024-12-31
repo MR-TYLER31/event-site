@@ -1,9 +1,9 @@
 import { useState } from "react";
-import Tabs from "../ui/Tabs";
-import JobCards from "../ui/JobCards";
-import Modal from "../ui/Modal";
-import JobForm from "../ui/JobForm";
-import { Job } from "../ui/JobCard";
+import Tabs from "./Tabs";
+import JobCards from "./JobCards";
+import Modal from "./Modal";
+import JobForm from "./JobForm";
+import { Job } from "./JobCard";
 
 const tabs = ["All", "Applied", "Interviewing", "Offered", "Rejected"];
 

@@ -30,8 +30,15 @@ function SideNav() {
 
   return (
     <nav className="row-span-4 border-r-2 bg-white text-teal-600 p-4">
-      <div className="flex items-center justify-between max-w-7xl mx-auto">
-        <div className="text-teal-600 font-bold text-lg">iApplied</div>
+      <div className="flex items-center justify-between max-w-7xl mr-2">
+        <div className="flex items-center">
+          <img
+            src="/images/iALogo.png" // Update with the correct path
+            alt="iApplied Logo"
+            className="h-8 w-auto mr-2" // Adjust height and spacing as needed
+          />
+          <div className="font-bold text-lg">iApplied</div>
+        </div>
         <button
           onClick={toggleMenu}
           className="transition ease-in-out text-gray-400 hover:text-teal-600 focus:outline-none focus:ring-2 focus:ring-white"
@@ -69,7 +76,7 @@ function SideNav() {
               {...option}
               key={option.to}
               activeProps={{ className: `bg-teal-600 text-white` }}
-              className="transition ease-in-out p-2 block text-gray-400 hover:bg-teal-600 hover:text-white max-w-64 rounded-lg"
+              className="transition ease-in-out text-md p-2 block text-gray-400 hover:bg-teal-600 hover:text-white max-w-64 rounded-lg"
             >
               {option.icon}
               {option.label}

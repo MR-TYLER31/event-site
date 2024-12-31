@@ -1,4 +1,4 @@
-import ApplicationGrid from "../Features/ApplicationGrid";
+import ApplicationGrid from "../components/ApplicationGrid";
 
 function Jobs() {
   return (
