@@ -6,6 +6,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
 import Spinner from "./Spinner";
+import toast from "react-hot-toast";
 
 export interface Job {
   id: number;
@@ -42,6 +43,7 @@ function JobCard({ job, onEdit }: JobProps) {
     },
     onSuccess: async () => {
       await delay(2000);
+      toast.success("Job successfully deleted");
       // Invalidate the jobs query to refresh the list
       queryClient.invalidateQueries({ queryKey: ["jobs"] });
     },

@@ -4,6 +4,7 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { Job } from "./JobCard";
 import Spinner from "./Spinner";
+import toast from "react-hot-toast";
 
 interface JobFormInputs {
   title: string;
@@ -55,6 +56,12 @@ function JobForm({ closeModal, modalType, job }: JobFormProps) {
     },
     onSuccess: async () => {
       await delay(2000);
+      if (modalType === "add") {
+        toast.success("Job successfully added");
+      } else {
+        toast.success("Job successfully updated");
+      }
+
       // Invalidate the "jobs" query to refetch the job list
       queryClient.invalidateQueries({ queryKey: ["jobs"] });
       closeModal();
