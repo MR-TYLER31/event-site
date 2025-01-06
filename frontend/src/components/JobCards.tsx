@@ -1,21 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
 import { ErrorBoundary } from "react-error-boundary";
-import axios from "axios";
+import { Job } from "../types/jobTypes";
 import JobCard from "./JobCard";
 import Spinner from "./Spinner";
 import ErrorLoading from "./ErrorLoading";
-
-interface Job {
-  id: number;
-  title: string;
-  company: string;
-  location: string;
-  salary: string; // or number
-  status: string;
-  category: string;
-  link: string;
-  applied_date: string; // or Date
-}
+import { useJobs } from "../hooks/useJobs";
 
 interface JobCardsProps {
   activeTab: string;
@@ -25,18 +13,7 @@ function JobCards({
   activeTab,
   onEdit,
 }: JobCardsProps & { onEdit: (job: Job) => void }) {
-  const {
-    data: jobs = [],
-    isPending,
-    isError,
-  } = useQuery<Job[]>({
-    queryKey: ["jobs"],
-    queryFn: async () => {
-      const response = await axios.get("http://127.0.0.1:5000/jobs/");
-      return response.data; // Assuming this is the array of jobs
-    },
-    retry: false,
-  });
+  const { data: jobs = [], isPending, isError } = useJobs();
 
   const filteredJobs =
     activeTab === "All" ? jobs : jobs.filter((job) => job.status === activeTab);

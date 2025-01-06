@@ -13,7 +13,12 @@ const options = [
   }),
   linkOptions({
     to: "/jobs",
-    label: "Jobs",
+    label: "Job Center",
+    icon: <FolderOutlinedIcon className="mr-2" />,
+  }),
+  linkOptions({
+    to: "/search-jobs",
+    label: "Search Jobs",
     icon: <FolderOutlinedIcon className="mr-2" />,
   }),
   linkOptions({

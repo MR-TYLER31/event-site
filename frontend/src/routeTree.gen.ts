@@ -10,166 +10,187 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as SettingsRouteImport } from './routes/settingsRoute'
-import { Route as RootRouteImport } from './routes/rootRoute'
-import { Route as NotFoundRouteImport } from './routes/notFoundRoute'
-import { Route as JobsRouteImport } from './routes/jobsRoute'
-import { Route as IndexRouteImport } from './routes/indexRoute'
-import { Route as DashboardRouteImport } from './routes/dashboardRoute'
+import { Route as rootRoute } from "./routes/__root";
+import { Route as SettingsRouteImport } from "./routes/settingsRoute";
+import { Route as SearchJobRouteImport } from "./routes/searchJobRoute";
+import { Route as RootRouteImport } from "./routes/rootRoute";
+import { Route as NotFoundRouteImport } from "./routes/notFoundRoute";
+import { Route as JobsRouteImport } from "./routes/jobsRoute";
+import { Route as IndexRouteImport } from "./routes/indexRoute";
+import { Route as DashboardRouteImport } from "./routes/dashboardRoute";
 
 // Create/Update Routes
 
 const SettingsRouteRoute = SettingsRouteImport.update({
-  id: '/settingsRoute',
-  path: '/settingsRoute',
+  id: "/settingsRoute",
+  path: "/settingsRoute",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
+
+const SearchJobRouteRoute = SearchJobRouteImport.update({
+  id: "/searchJobRoute",
+  path: "/searchJobRoute",
+  getParentRoute: () => rootRoute,
+} as any);
 
 const RootRouteRoute = RootRouteImport.update({
-  id: '/rootRoute',
-  path: '/rootRoute',
+  id: "/rootRoute",
+  path: "/rootRoute",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const NotFoundRouteRoute = NotFoundRouteImport.update({
-  id: '/notFoundRoute',
-  path: '/notFoundRoute',
+  id: "/notFoundRoute",
+  path: "/notFoundRoute",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const JobsRouteRoute = JobsRouteImport.update({
-  id: '/jobsRoute',
-  path: '/jobsRoute',
+  id: "/jobsRoute",
+  path: "/jobsRoute",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const IndexRouteRoute = IndexRouteImport.update({
-  id: '/indexRoute',
-  path: '/indexRoute',
+  id: "/indexRoute",
+  path: "/indexRoute",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const DashboardRouteRoute = DashboardRouteImport.update({
-  id: '/dashboardRoute',
-  path: '/dashboardRoute',
+  id: "/dashboardRoute",
+  path: "/dashboardRoute",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 // Populate the FileRoutesByPath interface
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/dashboardRoute': {
-      id: '/dashboardRoute'
-      path: '/dashboardRoute'
-      fullPath: '/dashboardRoute'
-      preLoaderRoute: typeof DashboardRouteImport
-      parentRoute: typeof rootRoute
-    }
-    '/indexRoute': {
-      id: '/indexRoute'
-      path: '/indexRoute'
-      fullPath: '/indexRoute'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRoute
-    }
-    '/jobsRoute': {
-      id: '/jobsRoute'
-      path: '/jobsRoute'
-      fullPath: '/jobsRoute'
-      preLoaderRoute: typeof JobsRouteImport
-      parentRoute: typeof rootRoute
-    }
-    '/notFoundRoute': {
-      id: '/notFoundRoute'
-      path: '/notFoundRoute'
-      fullPath: '/notFoundRoute'
-      preLoaderRoute: typeof NotFoundRouteImport
-      parentRoute: typeof rootRoute
-    }
-    '/rootRoute': {
-      id: '/rootRoute'
-      path: '/rootRoute'
-      fullPath: '/rootRoute'
-      preLoaderRoute: typeof RootRouteImport
-      parentRoute: typeof rootRoute
-    }
-    '/settingsRoute': {
-      id: '/settingsRoute'
-      path: '/settingsRoute'
-      fullPath: '/settingsRoute'
-      preLoaderRoute: typeof SettingsRouteImport
-      parentRoute: typeof rootRoute
-    }
+    "/dashboardRoute": {
+      id: "/dashboardRoute";
+      path: "/dashboardRoute";
+      fullPath: "/dashboardRoute";
+      preLoaderRoute: typeof DashboardRouteImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/indexRoute": {
+      id: "/indexRoute";
+      path: "/indexRoute";
+      fullPath: "/indexRoute";
+      preLoaderRoute: typeof IndexRouteImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/jobsRoute": {
+      id: "/jobsRoute";
+      path: "/jobsRoute";
+      fullPath: "/jobsRoute";
+      preLoaderRoute: typeof JobsRouteImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/notFoundRoute": {
+      id: "/notFoundRoute";
+      path: "/notFoundRoute";
+      fullPath: "/notFoundRoute";
+      preLoaderRoute: typeof NotFoundRouteImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/rootRoute": {
+      id: "/rootRoute";
+      path: "/rootRoute";
+      fullPath: "/rootRoute";
+      preLoaderRoute: typeof RootRouteImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/searchJobRoute": {
+      id: "/searchJobRoute";
+      path: "/searchJobRoute";
+      fullPath: "/searchJobRoute";
+      preLoaderRoute: typeof SearchJobRouteImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/settingsRoute": {
+      id: "/settingsRoute";
+      path: "/settingsRoute";
+      fullPath: "/settingsRoute";
+      preLoaderRoute: typeof SettingsRouteImport;
+      parentRoute: typeof rootRoute;
+    };
   }
 }
 
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
-  '/dashboardRoute': typeof DashboardRouteRoute
-  '/indexRoute': typeof IndexRouteRoute
-  '/jobsRoute': typeof JobsRouteRoute
-  '/notFoundRoute': typeof NotFoundRouteRoute
-  '/rootRoute': typeof RootRouteRoute
-  '/settingsRoute': typeof SettingsRouteRoute
+  "/dashboardRoute": typeof DashboardRouteRoute;
+  "/indexRoute": typeof IndexRouteRoute;
+  "/jobsRoute": typeof JobsRouteRoute;
+  "/notFoundRoute": typeof NotFoundRouteRoute;
+  "/rootRoute": typeof RootRouteRoute;
+  "/searchJobRoute": typeof SearchJobRouteRoute;
+  "/settingsRoute": typeof SettingsRouteRoute;
 }
 
 export interface FileRoutesByTo {
-  '/dashboardRoute': typeof DashboardRouteRoute
-  '/indexRoute': typeof IndexRouteRoute
-  '/jobsRoute': typeof JobsRouteRoute
-  '/notFoundRoute': typeof NotFoundRouteRoute
-  '/rootRoute': typeof RootRouteRoute
-  '/settingsRoute': typeof SettingsRouteRoute
+  "/dashboardRoute": typeof DashboardRouteRoute;
+  "/indexRoute": typeof IndexRouteRoute;
+  "/jobsRoute": typeof JobsRouteRoute;
+  "/notFoundRoute": typeof NotFoundRouteRoute;
+  "/rootRoute": typeof RootRouteRoute;
+  "/searchJobRoute": typeof SearchJobRouteRoute;
+  "/settingsRoute": typeof SettingsRouteRoute;
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute
-  '/dashboardRoute': typeof DashboardRouteRoute
-  '/indexRoute': typeof IndexRouteRoute
-  '/jobsRoute': typeof JobsRouteRoute
-  '/notFoundRoute': typeof NotFoundRouteRoute
-  '/rootRoute': typeof RootRouteRoute
-  '/settingsRoute': typeof SettingsRouteRoute
+  __root__: typeof rootRoute;
+  "/dashboardRoute": typeof DashboardRouteRoute;
+  "/indexRoute": typeof IndexRouteRoute;
+  "/jobsRoute": typeof JobsRouteRoute;
+  "/notFoundRoute": typeof NotFoundRouteRoute;
+  "/rootRoute": typeof RootRouteRoute;
+  "/searchJobRoute": typeof SearchJobRouteRoute;
+  "/settingsRoute": typeof SettingsRouteRoute;
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
+  fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
-    | '/dashboardRoute'
-    | '/indexRoute'
-    | '/jobsRoute'
-    | '/notFoundRoute'
-    | '/rootRoute'
-    | '/settingsRoute'
-  fileRoutesByTo: FileRoutesByTo
+    | "/dashboardRoute"
+    | "/indexRoute"
+    | "/jobsRoute"
+    | "/notFoundRoute"
+    | "/rootRoute"
+    | "/searchJobRoute"
+    | "/settingsRoute";
+  fileRoutesByTo: FileRoutesByTo;
   to:
-    | '/dashboardRoute'
-    | '/indexRoute'
-    | '/jobsRoute'
-    | '/notFoundRoute'
-    | '/rootRoute'
-    | '/settingsRoute'
+    | "/dashboardRoute"
+    | "/indexRoute"
+    | "/jobsRoute"
+    | "/notFoundRoute"
+    | "/rootRoute"
+    | "/searchJobRoute"
+    | "/settingsRoute";
   id:
-    | '__root__'
-    | '/dashboardRoute'
-    | '/indexRoute'
-    | '/jobsRoute'
-    | '/notFoundRoute'
-    | '/rootRoute'
-    | '/settingsRoute'
-  fileRoutesById: FileRoutesById
+    | "__root__"
+    | "/dashboardRoute"
+    | "/indexRoute"
+    | "/jobsRoute"
+    | "/notFoundRoute"
+    | "/rootRoute"
+    | "/searchJobRoute"
+    | "/settingsRoute";
+  fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
-  DashboardRouteRoute: typeof DashboardRouteRoute
-  IndexRouteRoute: typeof IndexRouteRoute
-  JobsRouteRoute: typeof JobsRouteRoute
-  NotFoundRouteRoute: typeof NotFoundRouteRoute
-  RootRouteRoute: typeof RootRouteRoute
-  SettingsRouteRoute: typeof SettingsRouteRoute
+  DashboardRouteRoute: typeof DashboardRouteRoute;
+  IndexRouteRoute: typeof IndexRouteRoute;
+  JobsRouteRoute: typeof JobsRouteRoute;
+  NotFoundRouteRoute: typeof NotFoundRouteRoute;
+  RootRouteRoute: typeof RootRouteRoute;
+  SearchJobRouteRoute: typeof SearchJobRouteRoute;
+  SettingsRouteRoute: typeof SettingsRouteRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -178,12 +199,13 @@ const rootRouteChildren: RootRouteChildren = {
   JobsRouteRoute: JobsRouteRoute,
   NotFoundRouteRoute: NotFoundRouteRoute,
   RootRouteRoute: RootRouteRoute,
+  SearchJobRouteRoute: SearchJobRouteRoute,
   SettingsRouteRoute: SettingsRouteRoute,
-}
+};
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
 
 /* ROUTE_MANIFEST_START
 {
@@ -196,6 +218,7 @@ export const routeTree = rootRoute
         "/jobsRoute",
         "/notFoundRoute",
         "/rootRoute",
+        "/searchJobRoute",
         "/settingsRoute"
       ]
     },
@@ -213,6 +236,9 @@ export const routeTree = rootRoute
     },
     "/rootRoute": {
       "filePath": "rootRoute.tsx"
+    },
+    "/searchJobRoute": {
+      "filePath": "searchJobRoute.tsx"
     },
     "/settingsRoute": {
       "filePath": "settingsRoute.tsx"
