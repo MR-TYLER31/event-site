@@ -1,6 +1,7 @@
 import { useState } from "react";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import FolderOutlinedIcon from "@mui/icons-material/FolderOutlined";
+import SearchIcon from "@mui/icons-material/Search";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import { Link, linkOptions } from "@tanstack/react-router";
 
@@ -19,7 +20,7 @@ const options = [
   linkOptions({
     to: "/search-jobs",
     label: "Search Jobs",
-    icon: <FolderOutlinedIcon className="mr-2" />,
+    icon: <SearchIcon className="mr-2" />,
   }),
   linkOptions({
     to: "/settings",

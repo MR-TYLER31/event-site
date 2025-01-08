@@ -2,18 +2,18 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
 import { useForm } from "react-hook-form";
-import { Job } from "./JobCard";
+import { Job } from "../types/jobTypes";
 import Spinner from "./Spinner";
 import toast from "react-hot-toast";
 
 interface JobFormInputs {
-  title: string;
-  company: string;
-  location: string;
-  salary: string;
-  status: string;
-  category: string;
-  link: string;
+  job_title: string;
+  employer_name: string;
+  job_location: string;
+  job_salary: string;
+  job_status: string;
+  job_employment_type: string;
+  job_apply_link: string;
   applied_date: string;
 }
 
@@ -26,13 +26,13 @@ interface JobFormProps {
 function JobForm({ closeModal, modalType, job }: JobFormProps) {
   const { register, handleSubmit, reset } = useForm<JobFormInputs>({
     defaultValues: job || {
-      title: "",
-      company: "",
-      location: "",
-      salary: "",
-      status: "Applied",
-      category: "",
-      link: "",
+      job_title: "",
+      employer_name: "",
+      job_location: "",
+      job_salary: "",
+      job_status: "Applied",
+      job_employment_type: "",
+      job_apply_link: "",
       applied_date: "",
     },
   });
@@ -48,7 +48,7 @@ function JobForm({ closeModal, modalType, job }: JobFormProps) {
         await axios.post("http://127.0.0.1:5000/add-job/", jobData);
       } else {
         await axios.put(
-          `http://127.0.0.1:5000/update-job/${job?.id}/`,
+          `http://127.0.0.1:5000/update-job/${job?.job_id}/`,
           jobData
         );
       }
@@ -79,7 +79,7 @@ function JobForm({ closeModal, modalType, job }: JobFormProps) {
 
   return (
     <form
-      key={job?.id || "add-job"}
+      key={job?.job_id || "add-job"}
       onSubmit={handleSubmit(handleFormSubmit)}
       className="space-y-4"
     >
@@ -89,7 +89,7 @@ function JobForm({ closeModal, modalType, job }: JobFormProps) {
             Title
           </label>
           <input
-            {...register("title", { required: true })}
+            {...register("job_title", { required: true })}
             className="w-full border rounded p-2"
             placeholder="Job Title"
           />
@@ -100,7 +100,7 @@ function JobForm({ closeModal, modalType, job }: JobFormProps) {
             Company
           </label>
           <input
-            {...register("company", { required: true })}
+            {...register("employer_name", { required: true })}
             className="w-full border rounded p-2"
             placeholder="Company Name"
           />
@@ -111,7 +111,7 @@ function JobForm({ closeModal, modalType, job }: JobFormProps) {
             Location
           </label>
           <input
-            {...register("location", { required: true })}
+            {...register("job_location", { required: true })}
             className="w-full border rounded p-2"
             placeholder="Location"
           />
@@ -122,7 +122,7 @@ function JobForm({ closeModal, modalType, job }: JobFormProps) {
             Salary
           </label>
           <input
-            {...register("salary", { required: true })}
+            {...register("job_salary", { required: true })}
             className="w-full border rounded p-2"
             placeholder="Salary"
           />
@@ -133,7 +133,7 @@ function JobForm({ closeModal, modalType, job }: JobFormProps) {
             Status
           </label>
           <select
-            {...register("status", { required: true })}
+            {...register("job_status", { required: true })}
             className="w-full border rounded p-2"
           >
             <option value="Applied">Applied</option>
@@ -148,7 +148,7 @@ function JobForm({ closeModal, modalType, job }: JobFormProps) {
             Category
           </label>
           <input
-            {...register("category")}
+            {...register("job_employment_type")}
             className="w-full border rounded p-2"
             placeholder="Category"
           />
@@ -156,7 +156,7 @@ function JobForm({ closeModal, modalType, job }: JobFormProps) {
             Link
           </label>
           <input
-            {...register("link")}
+            {...register("job_apply_link")}
             className="w-full border rounded p-2"
             placeholder="Link"
           />

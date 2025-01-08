@@ -16,7 +16,9 @@ function JobCards({
   const { data: jobs = [], isPending, isError } = useJobs();
 
   const filteredJobs =
-    activeTab === "All" ? jobs : jobs.filter((job) => job.status === activeTab);
+    activeTab === "All"
+      ? jobs
+      : jobs.filter((job) => job.job_status === activeTab);
 
   if (isPending)
     return (
@@ -42,9 +44,9 @@ function JobCards({
   }
 
   return (
-    <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
       {filteredJobs.map((job) => (
-        <JobCard key={job.id} job={job} onEdit={onEdit} />
+        <JobCard key={job.job_id} job={job} onEdit={onEdit} />
       ))}
     </div>
   );

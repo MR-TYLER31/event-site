@@ -1,37 +1,27 @@
 import { useState } from "react";
-import { useSearchJobs } from "../hooks/useSearchJobs";
+import JobSearchForm from "../components/JobSearchForm";
+import JobTabs from "../components/JobTabs";
 import { Job } from "../types/jobTypes";
+import JobCard from "../components/JobCard";
 
 function SearchJobs() {
-  const [query, setQuery] = useState("");
-  const { data: jobs, isError } = useSearchJobs(query);
+  const [jobs, setJobs] = useState<Job[]>([]);
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSearchResults = (searchResults: Job[]) => {
+    setJobs(searchResults);
   };
 
   return (
     <div>
-      <form onSubmit={handleSearch}>
-        <input
-          type="text"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search jobs"
-        />
-        <button type="submit">Search</button>
-      </form>
-
-      {isError && <p>Failed to fetch jobs. Try again later.</p>}
-
-      <ul>
-        {jobs?.data?.map((job: Job) => (
-          <li key={job.job_id}>
-            <h3>{job.job_title}</h3>
-            <p>{job.employer_name}</p>
-          </li>
-        ))}
-      </ul>
+      <JobSearchForm onSearchResults={handleSearchResults} />
+      <JobTabs />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+        <div className="col-span-1 md:col-span-1 lg:col-span-1">
+          {jobs.map((job) => (
+            <JobCard key={job.job_id} job={job} onEdit={() => {}} />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

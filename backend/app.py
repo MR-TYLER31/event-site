@@ -37,7 +37,20 @@ def get_jobs():
     try:
         jobs = Job.query.all()  # Query all jobs
         # print("jobs fetched:", jobs)
-        jobs_list = [{"id": job.id, "title": job.title, "company": job.company, "location": job.location, "salary": job.salary, "category": job.category, "link": job.link, "status": job.status, "applied_date": str(job.applied_date)} for job in jobs]
+        jobs_list = [{"job_id": job.job_id,
+            "job_title": job.job_title,
+            "employer_name": job.employer_name,
+            "job_location": job.job_location,
+            "job_salary": job.job_salary,
+            "job_employment_type": job.job_employment_type,
+            "job_apply_link": job.job_apply_link,
+            "job_status": job.job_status,
+            "job_is_remote": job.job_is_remote,
+            "job_posted_at": job.job_posted_at,
+            "employer_logo": job.employer_logo,
+            "job_publisher": job.job_publisher,
+            "job_description": job.job_description,
+            "applied_date": str(job.applied_date)} for job in jobs]
         return jsonify(jobs_list), 200
     except Exception as e:
         print("Error:", str(e))
@@ -58,11 +71,11 @@ def add_job():
         return jsonify({"error": str(e)}), 500
     
     
-@app.route("/update-job/<id>/", methods=["PUT"])
-def update_job(id):
+@app.route("/update-job/<job_id>/", methods=["PUT"])
+def update_job(job_id):
     try:
-        print(f"Attempting to udpate the job with ID: {id}")
-        job = Job.query.get(int(id))
+        print(f"Attempting to udpate the job with job_id: {job_id}")
+        job = Job.query.get(int(job_id))
         if not job:
             print("Job not found.")
             return jsonify({"error": "Job not found"}), 404
@@ -73,13 +86,13 @@ def update_job(id):
         print("Received job data:", job_data)
         
         # Update fields (only update fields present in the request payload)
-        job.title = job_data.get("title", job.title)
-        job.company = job_data.get("company", job.company)
-        job.location = job_data.get("location", job.location)
-        job.salary = job_data.get("salary", job.salary)
-        job.category = job_data.get("category", job.category)
-        job.link = job_data.get("link", job.link)
-        job.status = job_data.get("status", job.status)
+        job.job_title = job_data.get("job_title", job.job_title)
+        job.employer_name = job_data.get("employer_name", job.employer_name)
+        job.job_job_location = job_data.get("job_location", job.job_location)
+        job.job_job_salary = job_data.get("job_salary", job.job_salary)
+        job.job_employment_type = job_data.get("job_employment_type", job.job_employment_type)
+        job.job_apply_link = job_data.get("job_apply_link", job.job_apply_link)
+        job.job_status = job_data.get("job_status", job.job_status)
         job.applied_date = job_data.get("applied_date", job.applied_date)
         
         # Commit the changes to the database
@@ -87,14 +100,19 @@ def update_job(id):
         print("Job updated successfully.")
         
         return jsonify({"message": "Job updated successfully!", "job": {
-            "id": job.id,
-            "title": job.title,
-            "company": job.company,
-            "location": job.location,
-            "salary": job.salary,
-            "category": job.category,
-            "link": job.link,
-            "status": job.status,
+            "job_id": job.job_id,
+            "job_title": job.job_title,
+            "employer_name": job.employer_name,
+            "job_location": job.job_location,
+            "job_salary": job.job_salary,
+            "job_employment_type": job.job_employment_type,
+            "job_apply_link": job.job_apply_link,
+            "job_status": job.job_status,
+            "job_is_remote": job.job_is_remote,
+            "job_posted_at": job.job_posted_at,
+            "employer_logo": job.employer_logo,
+            "job_publisher": job.job_publisher,
+            "job_description": job.job_description,
             "applied_date": str(job.applied_date),
         }}), 200
         
@@ -104,11 +122,11 @@ def update_job(id):
         return jsonify({"error": f"Unexpected error: {str(e)}"}), 500
     
     
-@app.route("/delete-job/<id>/", methods=["DELETE"])
-def delete_job(id):
+@app.route("/delete-job/<job_id>/", methods=["DELETE"])
+def delete_job(job_id):
     try:
-        print(f"Attempting to delete job with ID: {id}")
-        job = Job.query.get(int(id))
+        print(f"Attempting to delete job with job_id: {job_id}")
+        job = Job.query.get(int(job_id))
         if not job:
             print("Job not found.")
             return jsonify({"error": "Job not found"}), 404

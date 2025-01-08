@@ -7,18 +7,7 @@ import axios from "axios";
 import { useState } from "react";
 import Spinner from "./Spinner";
 import toast from "react-hot-toast";
-
-export interface Job {
-  id: number;
-  title: string;
-  company: string;
-  location: string;
-  salary: string; // or number
-  status: string;
-  category: string;
-  link: string;
-  applied_date: string; // or Date
-}
+import { Job } from "../types/jobTypes";
 
 interface JobProps {
   job: Job;
@@ -53,12 +42,11 @@ function JobCard({ job, onEdit }: JobProps) {
   });
 
   const handleDelete = () => {
-    deleteMutation.mutate(job.id);
+    deleteMutation.mutate(job.job_id);
   };
 
   return (
     <div className="relative border border-black rounded-lg p-4 shadow hover:shadow-lg transition flex flex-col justify-between min-h-[24rem]">
-      {/* Dropdown Menu */}
       <div className="absolute top-4 right-4">
         <button
           onClick={() => setMenuOpen((prev) => !prev)}
@@ -92,21 +80,23 @@ function JobCard({ job, onEdit }: JobProps) {
         )}
       </div>
       <div className="p-4">
-        <h3 className="text-xl font-semibold text-gray-800">{job.title}</h3>
-        <span className="text-gray-600 italic">{job.company}</span>
+        <h3 className="text-xl font-semibold text-gray-800">{job.job_title}</h3>
+        <span className="text-gray-600 italic">{job.employer_name}</span>
         <div className="mt-4 grid grid-cols-2 gap-4 text-sm text-gray-600">
-          <span className="font-medium text-gray-800">{job.location}</span>
+          <span className="font-medium text-gray-800">{job.job_location}</span>
 
           <span className="font-medium text-gray-800">
             <PaidIcon className="text-gray-600 mr-1" />
-            {job.salary}
+            {job.job_salary}
           </span>
-          <span className="font-medium text-gray-800">{job.status}</span>
+          <span className="font-medium text-gray-800">{job.job_status}</span>
           <span className="font-medium text-gray-800">
             <WorkIcon className="text-gray-600 mr-1" />
-            {job.category}
+            {job.job_employment_type}
           </span>
-          <span className="font-medium text-gray-800">{job.link}</span>
+          <span className="font-medium text-gray-800">
+            {job.job_apply_link}
+          </span>
           <span className="font-medium text-gray-800">
             <AccessTimeIcon className="text-gray-600 mr-1" />
             {`Applied ${job.applied_date}`}
@@ -127,12 +117,11 @@ function JobCard({ job, onEdit }: JobProps) {
           Delete
         </button> */}
 
-        {/* Confirmation Modal */}
         {isOpenModal && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-20">
             <div className="bg-white p-6 rounded shadow-lg">
               <h4 className="text-lg font-bold mb-4">
-                Are you sure you want to delete "{job.title}"?
+                Are you sure you want to delete "{job.job_title}"?
               </h4>
               <div className="flex justify-end gap-2">
                 <button
@@ -142,7 +131,6 @@ function JobCard({ job, onEdit }: JobProps) {
                   Cancel
                 </button>
                 <button
-                  // className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
                   className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
                   onClick={handleDelete}
                   disabled={deleteMutation.isPending}
