@@ -22,7 +22,7 @@ export function KanbanCard({ job }: JobCardProps) {
       ref={setNodeRef}
       {...listeners}
       {...attributes}
-      className={`cursor-grab rounded-lg ${transform && "bg-teal-50"} bg-white border-l-4 border-teal-500 py-6 px-2 shadow-sm hover:shadow-md`}
+      className={`cursor-grab rounded-lg ${transform ? "bg-teal-100" : "bg-white"} border-l-4 border-teal-500 py-6 px-2 shadow-sm hover:shadow-md`}
       style={style}
     >
       <h3 className="font-medium text-black">{job.job_title}</h3>
