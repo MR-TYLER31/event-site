@@ -52,7 +52,7 @@ function KanbanBoard() {
   const filteredJobsByColumn: FilteredJobsByColumn = COLUMNS.reduce(
     (acc, column) => {
       acc[column.id] =
-        jobData?.filter((job) => (job.job_status = column.id)) || [];
+        jobData?.filter((job) => job.job_status === column.id) || [];
 
       return acc;
     },
