@@ -8,7 +8,7 @@ type ColumnProps = {
 };
 
 function KanbanColumn({ column, jobs }: ColumnProps) {
-  const { setNodeRef } = useDroppable({
+  const { isOver, setNodeRef } = useDroppable({
     id: column.id,
   });
 
@@ -19,7 +19,7 @@ function KanbanColumn({ column, jobs }: ColumnProps) {
       </h2>
       <div
         ref={setNodeRef}
-        className="flex flex-col gap-4 rounded-lg bg-slate-100 p-2 h-[1000px]"
+        className={`flex flex-col gap-4 ${isOver ? "bg-slate-200" : "bg-slate-100"} rounded-lg p-2 h-[1000px]`}
       >
         {jobs.map((job) => (
           <KanbanCard key={job.job_id} job={job} />

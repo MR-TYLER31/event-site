@@ -1,8 +1,16 @@
 import { useJobs } from "../hooks/useJobs";
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
-import type { Column as ColumnType, Job } from "../types/jobTypes";
+import type {
+  ApplicationStatus,
+  Column as ColumnType,
+  Job,
+} from "../types/jobTypes";
 import KanbanColumn from "./KanbanColumn";
 import { useEffect, useState } from "react";
+
+type FilteredJobsByColumn = {
+  [key in ApplicationStatus]: Job[];
+};
 
 const COLUMNS: ColumnType[] = [
   { id: "Applied", title: "Applied" },
@@ -34,30 +42,34 @@ function KanbanBoard() {
         job.job_id === jobId
           ? {
               ...job,
-              job_status: newStatus, // Update the status to the new column's ID
+              job_status: newStatus,
             }
           : job
       )
     );
   }
 
+  const filteredJobsByColumn: FilteredJobsByColumn = COLUMNS.reduce(
+    (acc, column) => {
+      acc[column.id] =
+        jobData?.filter((job) => (job.job_status = column.id)) || [];
+
+      return acc;
+    },
+    {} as FilteredJobsByColumn
+  );
+
   return (
     <div className="p-4">
       <div className="flex gap-4">
         <DndContext onDragEnd={handleDragEnd}>
-          {COLUMNS.map((column) => {
-            const filteredJobs =
-              jobData?.filter((job) => job.job_status === column.id) || [];
-            console.log(`Jobs for column ${column.id}:`, filteredJobs);
-
-            return (
-              <KanbanColumn
-                key={column.id}
-                column={column}
-                jobs={filteredJobs || []}
-              />
-            );
-          })}
+          {COLUMNS.map((column) => (
+            <KanbanColumn
+              key={column.id}
+              column={column}
+              jobs={filteredJobsByColumn[column.id]}
+            />
+          ))}
         </DndContext>
       </div>
     </div>
