@@ -21,16 +21,17 @@ interface JobFormProps {
   closeModal: () => void;
   modalType: "add" | "edit";
   job: Job | null;
+  status: string;
 }
 
-function JobForm({ closeModal, modalType, job }: JobFormProps) {
+function JobForm({ closeModal, modalType, job, status }: JobFormProps) {
   const { register, handleSubmit, reset } = useForm<JobFormInputs>({
     defaultValues: job || {
       job_title: "",
       employer_name: "",
       job_location: "",
       job_salary: "",
-      job_status: "Applied",
+      job_status: status,
       job_employment_type: "",
       job_apply_link: "",
       applied_date: "",
@@ -72,7 +73,6 @@ function JobForm({ closeModal, modalType, job }: JobFormProps) {
   });
 
   const handleFormSubmit = async (data: JobFormInputs) => {
-    // console.log(data);
     mutation.mutate(data);
     reset();
   };
@@ -126,21 +126,6 @@ function JobForm({ closeModal, modalType, job }: JobFormProps) {
             className="w-full border rounded p-2"
             placeholder="Salary"
           />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Status
-          </label>
-          <select
-            {...register("job_status", { required: true })}
-            className="w-full border rounded p-2"
-          >
-            <option value="Applied">Applied</option>
-            <option value="Interviewing">Interviewing</option>
-            <option value="Offered">Offered</option>
-            <option value="Rejected">Rejected</option>
-          </select>
         </div>
 
         <div>
