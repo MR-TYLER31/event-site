@@ -44,7 +44,7 @@ function KanbanColumn({ column, jobs }: ColumnProps) {
         className={`flex flex-col gap-4 ${isOver ? "bg-slate-200" : "bg-slate-100"} rounded-lg p-2 h-[1000px]`}
       >
         {jobs.map((job) => (
-          <KanbanCard key={job.job_id} job={job} />
+          <KanbanCard key={job.job_id} job={job} column={column} />
         ))}
       </div>
 

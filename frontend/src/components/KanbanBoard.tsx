@@ -7,6 +7,7 @@ import type {
 } from "../types/jobTypes";
 import KanbanColumn from "./KanbanColumn";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 type FilteredJobsByColumn = {
   [key in ApplicationStatus]: Job[];
@@ -47,6 +48,13 @@ function KanbanBoard() {
           : job
       )
     );
+    // Send a request to the backend to update the job status
+    //   axios.put(`http://127.0.0.1:5000/update-job-status/${jobId}/`, {
+    //     job_status: newStatus,
+    //   }).catch((error) => {
+    //     console.error("Failed to update job status:", error);
+    //   });
+    // }
   }
 
   const filteredJobsByColumn: FilteredJobsByColumn = COLUMNS.reduce(

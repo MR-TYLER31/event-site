@@ -74,7 +74,7 @@ function JobForm({ closeModal, modalType, job, status }: JobFormProps) {
 
   const handleFormSubmit = async (data: JobFormInputs) => {
     mutation.mutate(data);
-    reset();
+    // reset();
   };
 
   return (
@@ -82,6 +82,7 @@ function JobForm({ closeModal, modalType, job, status }: JobFormProps) {
       key={job?.job_id || "add-job"}
       onSubmit={handleSubmit(handleFormSubmit)}
       className="space-y-4"
+      onPointerDown={(e) => e.stopPropagation()}
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
@@ -162,6 +163,7 @@ function JobForm({ closeModal, modalType, job, status }: JobFormProps) {
         <button
           type="button"
           onClick={closeModal}
+          onPointerDown={(e) => e.stopPropagation()}
           className="bg-gray-200 text-gray-700 px-4 py-2 rounded"
         >
           Cancel
@@ -170,6 +172,7 @@ function JobForm({ closeModal, modalType, job, status }: JobFormProps) {
           type="submit"
           className="bg-black text-white px-4 py-2 rounded flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
           disabled={mutation.isPending}
+          onPointerDown={(e) => e.stopPropagation()}
         >
           {mutation.isPending && (
             <Spinner size="w-4 h-4" color="border-white" margin="mr-2" />
