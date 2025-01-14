@@ -140,6 +140,23 @@ def delete_job(job_id):
         import traceback
         traceback.print_exc()
         return jsonify({"error": f"Unexpected error: {str(e)}"}), 500
+    
+
+@app.route("/update-job-status/<job_id>/", methods=["PUT"])
+def update_job_status(job_id):
+    try:
+        job = Job.query.get(int(job_id))
+        if not job:
+            return jsonify({"error": "Job not found"}), 404
+
+        job_data = request.json
+        job.job_status = job_data.get("job_status", job.job_status)
+
+        db.session.commit()
+        return jsonify({"message": "Job status updated successfully!"}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
 
         
 

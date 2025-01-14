@@ -8,6 +8,7 @@ import type {
 import KanbanColumn from "./KanbanColumn";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 type FilteredJobsByColumn = {
   [key in ApplicationStatus]: Job[];
@@ -37,24 +38,31 @@ function KanbanBoard() {
 
     const jobId = active.id as number;
     const newStatus = over.id as Job["job_status"];
+    const currentJob = jobData.find((job) => job.job_id === jobId);
 
-    setJobData((prevJobData) =>
-      prevJobData?.map((job) =>
-        job.job_id === jobId
-          ? {
-              ...job,
-              job_status: newStatus,
-            }
-          : job
-      )
+    if (currentJob?.job_status === newStatus) return;
+
+    const previousData = jobData;
+    const updatedData = jobData.map((job) =>
+      job.job_id === jobId ? { ...job, job_status: newStatus } : job
     );
-    // Send a request to the backend to update the job status
-    //   axios.put(`http://127.0.0.1:5000/update-job-status/${jobId}/`, {
-    //     job_status: newStatus,
-    //   }).catch((error) => {
-    //     console.error("Failed to update job status:", error);
-    //   });
-    // }
+
+    setJobData(updatedData);
+
+    // Send the request to the backend
+    axios
+      .put(`http://127.0.0.1:5000/update-job-status/${jobId}/`, {
+        job_status: newStatus,
+      })
+      .then(() => {
+        toast.success("Job status updated successfully");
+      })
+      .catch((error) => {
+        console.error("Failed to update job status:", error);
+        toast.error("Failed to update job status");
+        // Rollback to the previous data if the API call fails
+        setJobData(previousData);
+      });
   }
 
   const filteredJobsByColumn: FilteredJobsByColumn = COLUMNS.reduce(
