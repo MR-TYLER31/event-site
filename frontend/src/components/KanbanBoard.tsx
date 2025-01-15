@@ -9,6 +9,7 @@ import KanbanColumn from "./KanbanColumn";
 import { useEffect, useState } from "react";
 
 import { useUpdateJobStatus } from "../hooks/useUpdateJobStatus";
+import Spinner from "./Spinner";
 
 type FilteredJobsByColumn = {
   [key in ApplicationStatus]: Job[];
@@ -62,6 +63,13 @@ function KanbanBoard() {
     },
     {} as FilteredJobsByColumn
   );
+
+  if (isPending)
+    return (
+      <div>
+        <Spinner />
+      </div>
+    );
 
   return (
     <div className="p-4">
