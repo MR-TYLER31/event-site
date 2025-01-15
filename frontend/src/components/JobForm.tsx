@@ -25,7 +25,7 @@ interface JobFormProps {
 }
 
 function JobForm({ closeModal, modalType, job, status }: JobFormProps) {
-  const { register, handleSubmit, reset } = useForm<JobFormInputs>({
+  const { register, handleSubmit } = useForm<JobFormInputs>({
     defaultValues: job || {
       job_title: "",
       employer_name: "",
@@ -74,7 +74,6 @@ function JobForm({ closeModal, modalType, job, status }: JobFormProps) {
 
   const handleFormSubmit = async (data: JobFormInputs) => {
     mutation.mutate(data);
-    // reset();
   };
 
   return (
