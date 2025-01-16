@@ -83,6 +83,10 @@ function JobForm({ closeModal, modalType, job, status }: JobFormProps) {
       className="space-y-4"
       onPointerDown={(e) => e.stopPropagation()}
     >
+      <div className="border-b py-2 font-semibold text-lg">
+        <h1>{modalType === "add" ? "Add Job" : "Update Job"}</h1>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label className="block text-sm font-medium text-gray-700">

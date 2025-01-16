@@ -17,6 +17,7 @@ type FilteredJobsByColumn = {
 
 const COLUMNS: ColumnType[] = [
   { id: "Applied", title: "Applied" },
+  { id: "Application Viewed", title: "Application Viewed" },
   { id: "Interviewing", title: "Interviewing" },
   { id: "Offered", title: "Offered" },
   { id: "Rejected", title: "Rejected" },

@@ -69,6 +69,16 @@ export function KanbanCard({ job, column }: JobCardProps) {
     deleteMutation.mutate(job.job_id);
   };
 
+  const MAX_TITLE_LENGTH = 20;
+  const MAX_EMPLOYER_NAME_LENGTH = 30;
+  const MAX_LOCATION_LENGTH = 8;
+
+  function truncateText(text: string, maxLength: number) {
+    return text.length > maxLength
+      ? text.substring(0, maxLength) + "..."
+      : text;
+  }
+
   return (
     <div
       ref={setNodeRef}
@@ -85,6 +95,22 @@ export function KanbanCard({ job, column }: JobCardProps) {
       >
         <MoreVertIcon className="text-neutral-400 hover:text-neutral-600" />
       </button>
+
+      <div className="px-4 w-64">
+        <h3 className="font-medium text-black">
+          {truncateText(job.job_title, MAX_TITLE_LENGTH)}
+        </h3>
+        <p className="mt-2 text-sm text-neutral-400">
+          {truncateText(job.employer_name, MAX_EMPLOYER_NAME_LENGTH)}
+        </p>
+      </div>
+      <div className="flex justify-between px-4">
+        <p className="mt-2 text-sm text-blue-600 w-24 bg-blue-200 rounded-full px-2">
+          {truncateText(job.job_location, MAX_LOCATION_LENGTH)}
+        </p>
+        <p className="mt-2 text-sm text-black px-2">{job.applied_date}</p>
+      </div>
+
       {menuOpen && (
         <div
           className="absolute top-10 right-0 bg-white border rounded-lg shadow-lg w-24"
@@ -113,16 +139,14 @@ export function KanbanCard({ job, column }: JobCardProps) {
         </div>
       )}
 
-      <h3 className="font-medium text-black">{job.job_title}</h3>
-      <p className="mt-2 text-sm text-neutral-400">{job.employer_name}</p>
-
       {isDeleteModalOpen && (
         <div
           className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-20 "
           onPointerDown={(e) => e.stopPropagation()}
         >
           <div className="bg-white p-6 rounded shadow-lg">
-            <h4 className="text-lg font-bold mb-4">
+            <h1 className="border-b py-2 font-semibold text-lg">Delete Job</h1>
+            <h4 className="text-lg my-4">
               Are you sure you want to delete "{job.job_title}"?
             </h4>
             <div className="flex justify-end gap-2">
@@ -144,7 +168,7 @@ export function KanbanCard({ job, column }: JobCardProps) {
                       color="border-white"
                       margin="mr-2"
                     />
-                    <span>Delete</span>
+                    <span>Deleting</span>
                   </>
                 ) : (
                   "Delete"

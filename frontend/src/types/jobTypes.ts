@@ -1,5 +1,6 @@
 export type ApplicationStatus =
   | "Applied"
+  | "Application Viewed"
   | "Interviewing"
   | "Offered"
   | "Rejected";
