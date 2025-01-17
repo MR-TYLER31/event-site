@@ -70,7 +70,7 @@ export function KanbanCard({ job, column }: JobCardProps) {
   };
 
   const MAX_TITLE_LENGTH = 20;
-  const MAX_EMPLOYER_NAME_LENGTH = 30;
+  const MAX_EMPLOYER_NAME_LENGTH = 15;
   const MAX_LOCATION_LENGTH = 8;
 
   function truncateText(text: string, maxLength: number) {

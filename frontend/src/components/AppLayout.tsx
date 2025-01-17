@@ -9,7 +9,7 @@ function AppLayout() {
       <SideNav />
       <TopNav />
       {/* Main Content */}
-      <div className="p-4 overflow-scroll">
+      <div className="overflow-x-auto">
         <Outlet />
 
         {/* For Development */}

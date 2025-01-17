@@ -73,18 +73,16 @@ function KanbanBoard() {
     );
 
   return (
-    <div className="p-4">
-      <div className="flex gap-4">
-        <DndContext onDragEnd={handleDragEnd}>
-          {COLUMNS.map((column) => (
-            <KanbanColumn
-              key={column.id}
-              column={column}
-              jobs={filteredJobsByColumn[column.id]}
-            />
-          ))}
-        </DndContext>
-      </div>
+    <div className="flex gap-4">
+      <DndContext onDragEnd={handleDragEnd}>
+        {COLUMNS.map((column) => (
+          <KanbanColumn
+            key={column.id}
+            column={column}
+            jobs={filteredJobsByColumn[column.id]}
+          />
+        ))}
+      </DndContext>
     </div>
   );
 }

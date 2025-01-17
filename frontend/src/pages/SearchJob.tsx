@@ -12,15 +12,13 @@ function SearchJobs() {
   };
 
   return (
-    <div>
+    <div className="flex flex-col h-full mt-6">
       <JobSearchForm onSearchResults={handleSearchResults} />
       <JobTabs />
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-        <div className="col-span-1 md:col-span-1 lg:col-span-1">
-          {jobs.map((job) => (
-            <JobCard key={job.job_id} job={job} onEdit={() => {}} />
-          ))}
-        </div>
+      <div className="w-1/4 border-r bg-white overflow-y-auto">
+        {jobs.map((job) => (
+          <JobCard key={job.job_id} job={job} onEdit={() => {}} />
+        ))}
       </div>
     </div>
   );
