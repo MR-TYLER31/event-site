@@ -5,6 +5,7 @@ export function useSearchJobs(query: string) {
   return useQuery({
     queryKey: ["jobs", query],
     queryFn: () => searchJobs(query),
-    enabled: !!query,
+    // enabled: !!query,
+    enabled: false,
   });
 }

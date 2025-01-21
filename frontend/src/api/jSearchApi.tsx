@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const BASE_URL = "https://jsearch.p.rapidapi.com";
-const API_KEY = "3e76306f9emsh0ea4cedab5ee4f3p106001jsn92db0427fe2f";
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 const headers = {
   "X-RapidAPI-Key": API_KEY,

@@ -1,7 +1,7 @@
 function Dashboard() {
   return (
-    <div>
-      <h2>Dashboard Page</h2>
+    <div className="m-6">
+      <h2 className="font-heading text-xl text-teal-900"></h2>
     </div>
   );
 }

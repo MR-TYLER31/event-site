@@ -35,7 +35,7 @@ function SideNav() {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <nav className="row-span-4 border-r-2 bg-white text-teal-600 p-4">
+    <nav className="row-span-4 border-r-2 bg-stone-100 text-teal-600 p-4">
       <div className="flex items-center justify-between max-w-7xl mr-2">
         <div className="flex items-center">
           <img

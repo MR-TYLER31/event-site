@@ -8,6 +8,10 @@ export default {
           600: "#1D4ED8",
         },
       },
+      fontFamily: {
+        sans: ["Roboto", "sans-serif"],
+        heading: ["Montserrat", "sans-serif"],
+      },
     },
   },
   plugins: [],

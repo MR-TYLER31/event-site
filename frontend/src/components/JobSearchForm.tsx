@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useSearchJobs } from "../hooks/useSearchJobs";
 import { Job } from "../types/jobTypes";
@@ -17,7 +17,7 @@ type JobSearchFormProps = {
 function JobSearchForm({ onSearchResults }: JobSearchFormProps) {
   const [query, setQuery] = useState<string>("");
   const { register, handleSubmit } = useForm<FormValues>();
-  const { data: jobs, isError } = useSearchJobs(query);
+  // const { data: jobs, isError } = useSearchJobs(query);
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     const queryString =
@@ -26,9 +26,11 @@ function JobSearchForm({ onSearchResults }: JobSearchFormProps) {
     setQuery(queryString);
   };
 
-  if (jobs?.data) {
-    onSearchResults(jobs.data);
-  }
+  useEffect(() => {
+    if (jobs?.data) {
+      onSearchResults(jobs.data);
+    }
+  }, [jobs, onSearchResults]);
 
   return (
     <>

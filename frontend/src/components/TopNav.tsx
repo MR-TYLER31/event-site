@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from "react";
+import SearchIcon from "@mui/icons-material/Search";
+import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 
 function TopNav() {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,16 +27,37 @@ function TopNav() {
   }, []);
 
   return (
-    <div className="bg-white border-b-2 text-black py-6 flex items-center justify-between">
+    <div className="bg-stone-50 border-b-2 text-black py-6 flex items-center justify-between">
       <div>
-        <h1 className="text-lg ml-4 font-semibold"></h1>
+        <h1 className="font-heading text-lg ml-4 font-semibold">
+          Welcome back, Tyler
+        </h1>
+      </div>
+      <div>
+        <form className="flex p-1.5 items-center border-1 shadow rounded-lg w-96 bg-white">
+          <SearchIcon className="text-gray-500" />
+          <input
+            type="text"
+            placeholder="Search anything here"
+            className="flex-grow px-1 border-none outline-none focus:ring-0 rounded-l-md"
+          />
+          <button
+            type="submit"
+            className="bg-teal-600 text-white px-2 py-1 rounded-md text-sm"
+          >
+            Search
+          </button>
+        </form>
       </div>
 
       <div className="flex items-center space-x-6">
+        <button className="">
+          <NotificationsNoneIcon />
+        </button>
         <div className="relative" ref={dropdownRef}>
           <button
             onClick={handleToggleMenu}
-            className="flex items-center p-2 w-64 bg-white  "
+            className="flex items-center p-2 w-64 bg-stone-50"
           >
             <img
               src="https://via.placeholder.com/40" // Replace with your image URL
