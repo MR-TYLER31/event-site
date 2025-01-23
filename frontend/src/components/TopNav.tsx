@@ -27,15 +27,15 @@ function TopNav() {
   }, []);
 
   return (
-    <div className="bg-stone-50 border-b-2 text-black py-6 flex items-center justify-between">
+    <div className="bg-white border-b-2 text-black py-6 flex items-center justify-between">
       <div>
         <h1 className="font-heading text-lg ml-4 font-semibold">
           Welcome back, Tyler
         </h1>
       </div>
       <div>
-        <form className="flex p-1.5 items-center border-1 shadow rounded-lg w-96 bg-white">
-          <SearchIcon className="text-gray-500" />
+        <form className="flex p-1 items-center border-2 border-slate-200 rounded-lg w-96 bg-white">
+          <SearchIcon className="text-slate-500" />
           <input
             type="text"
             placeholder="Search anything here"
@@ -52,15 +52,15 @@ function TopNav() {
 
       <div className="flex items-center space-x-6">
         <button className="">
-          <NotificationsNoneIcon />
+          <NotificationsNoneIcon className="text-slate-400" />
         </button>
         <div className="relative" ref={dropdownRef}>
           <button
             onClick={handleToggleMenu}
-            className="flex items-center p-2 w-64 bg-stone-50"
+            className="flex items-center p-2 w-64 bg-white"
           >
             <img
-              src="https://via.placeholder.com/40" // Replace with your image URL
+              src="/images/ProfilePic.png" // Replace with your image URL
               alt="Profile"
               className="w-10 h-10 rounded-full object-cover"
             />

@@ -32,7 +32,7 @@ function KanbanColumn({ column, jobs }: ColumnProps) {
 
   return (
     <div className="flex flex-col w-[19rem] min-w-[19rem]">
-      <div className="flex justify-between items-center mb-4 py-4 px-3 text-md rounded-lg font-light bg-slate-100 text-slate-600">
+      <div className="flex justify-between items-center mb-4 py-4 px-3 text-md rounded-lg font-light bg-slate-100 text-slate-500">
         <div className="flex items-center gap-4">
           <h2>{column.title.toUpperCase()}</h2>
           <p className="flex items-center justify-center bg-red-100 text-red-400 rounded-full h-7 w-7">

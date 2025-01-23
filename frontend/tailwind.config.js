@@ -7,6 +7,7 @@ export default {
         brand: {
           600: "#1D4ED8",
         },
+        customBackground: "#F9FBFC",
       },
       fontFamily: {
         sans: ["Roboto", "sans-serif"],

@@ -10,7 +10,7 @@ const options = [
     to: "/dashboard",
     label: "Dashboard",
     activeOptions: { exact: false },
-    icon: <HomeOutlinedIcon className="mr-2 text-lg" />,
+    icon: <HomeOutlinedIcon className="mr-2" />,
   }),
   linkOptions({
     to: "/jobs",
@@ -35,7 +35,7 @@ function SideNav() {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <nav className="row-span-4 border-r-2 bg-stone-100 text-teal-600 p-4">
+    <nav className="row-span-4 border-r-2 bg-teal-600 text-white p-4">
       <div className="flex items-center justify-between max-w-7xl mr-2">
         <div className="flex items-center">
           <img
@@ -47,7 +47,7 @@ function SideNav() {
         </div>
         <button
           onClick={toggleMenu}
-          className="transition ease-in-out text-gray-400 hover:text-teal-600 focus:outline-none focus:ring-2 focus:ring-white"
+          className="transition ease-in-out text-white focus:outline-none"
         >
           <svg
             className="h-6 w-6"
@@ -81,8 +81,8 @@ function SideNav() {
             <Link
               {...option}
               key={option.to}
-              activeProps={{ className: `bg-teal-600 text-white` }}
-              className="transition ease-in-out text-md p-2 block text-gray-400 hover:bg-teal-600 hover:text-white max-w-64 rounded-lg"
+              activeProps={{ className: `bg-white text-teal-600` }}
+              className="transition ease-in-out text-md text-bold p-2 block hover:bg-white hover:text-teal-600 max-w-64 rounded-lg"
             >
               {option.icon}
               {option.label}
