@@ -8,11 +8,8 @@ function AppLayout() {
     <div className="grid grid-rows-[auto_1fr] grid-cols-[250px_1fr] h-screen bg-stone-50">
       <SideNav />
       <TopNav />
-      {/* Main Content */}
       <div className="overflow-x-auto">
         <Outlet />
-
-        {/* For Development */}
         <TanStackRouterDevtools />
       </div>
     </div>

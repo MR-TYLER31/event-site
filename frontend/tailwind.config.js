@@ -8,6 +8,7 @@ export default {
           600: "#1D4ED8",
         },
         customBackground: "#F9FBFC",
+        secondaryColor: "#FF6F61",
       },
       fontFamily: {
         sans: ["Roboto", "sans-serif"],
